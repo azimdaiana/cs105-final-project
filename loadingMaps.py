@@ -16,8 +16,8 @@ def load_map(fileName: str) -> List[List[int]]:
     file.close()
     return grid
 
-print(load_map("map1.txt"))
+print(load_map("map1.txt")) #ease level
 print(load_map("map2.txt"))
 print(load_map("map3.txt"))
 print(load_map("map4.txt"))
-print(load_map("map5.txt"))
+print(load_map("map5.txt")) #hardest level
