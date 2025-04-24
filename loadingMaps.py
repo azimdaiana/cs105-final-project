@@ -14,7 +14,8 @@ def load_map(fileName: str) -> List[List[int]]:
             row.append(int(char)) #converts the row into ints and creates a list(row) of int
         grid.append(row) #appends the rows into the matrix
     file.close()
-    return grid
+    print(grid)
+
 
 # print(load_map("map1.txt")) #easy level
 # print(load_map("map2.txt"))
