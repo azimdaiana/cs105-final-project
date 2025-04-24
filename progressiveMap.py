@@ -4,7 +4,7 @@ from typing import List
 #prints map when given input "print" and "map(number)" as parameter values
 def print_map(i):
     if "print" and "map1" in i:
-         return load_map("map1.txt")
+        return load_map("map1.txt")
     elif "print" and "map2" in i:
         return load_map("map2.txt")
     elif "print" and "map3" in i:
@@ -14,9 +14,8 @@ def print_map(i):
     elif "print" and "map5" in i:
         return load_map("map5.txt")
 
-print(print_map("print map1"))
-# print(print_map(input()))
-
+print(print_map(input()))
+#
 # def print_map(i)->List[int]:
 #     m = []
 #     if 'print' and 'map1' in i:
