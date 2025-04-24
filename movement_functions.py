@@ -42,4 +42,14 @@ def setLocation(x: int, y: int) -> bool
             print("Cannot go south.")
 
 
-def canGoEast()
+def canGoEast(x: int) -> bool:
+    if map[x] == 0:
+
+
+def canGoWest() -> bool:
+
+
+def canGoNorth() -> bool:
+
+
+def canGoSouth() -> bool:
