@@ -31,5 +31,5 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
     return grid
-
+#add a rando number for an enemey
 print(randomMaze(3, 5))
