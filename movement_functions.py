@@ -4,6 +4,7 @@ from loadingMaps import load_map
 
 player_x = 0
 player_y = 0
+map = print_map(i)
 
 #this is a test comment
 def getCurrentLocation() -> tuple:
@@ -43,7 +44,10 @@ def setLocation(x: int, y: int) -> bool
 
 
 def canGoEast(x: int) -> bool:
-    if map[x] == 0:
+    if map[i][j] == 1:
+        return True
+    else:
+        return False
 
 
 def canGoWest() -> bool:
@@ -53,3 +57,16 @@ def canGoNorth() -> bool:
 
 
 def canGoSouth() -> bool:
+
+
+def goEast(x: int):
+    player_x += x
+
+def goWest(x: int):
+    player_x -= x
+
+def goNorth(y: int):
+    player_y += y
+
+def goSouth(y: int):
+    player_y -= y
