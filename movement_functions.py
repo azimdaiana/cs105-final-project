@@ -5,6 +5,7 @@ from loadingMaps import load_map
 player_x = 0
 player_y = 0
 
+#this is a test comment
 def getCurrentLocation() -> tuple:
     location: tuple = (player_x, player_y)
     return location
