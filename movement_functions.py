@@ -4,7 +4,6 @@ from loadingMaps import load_map
 
 player_x = 0
 player_y = 0
-map = print_map(i)
 
 #this is a test comment
 def getCurrentLocation() -> tuple:
@@ -14,28 +13,29 @@ def getCurrentLocation() -> tuple:
 print(getCurrentLocation())
 
 
-def setLocation(x: int, y: int) -> bool:
+def setLocation(x: int, y: int) -> bool
     precondition(x == player_x or y == player_y)
+    location: tuple = (player_x, player_y)
     if x > player_x:
-        if canGoEast(x):
+        if canGoEast():
             goEast(abs(player_x - x))
             print ("Moved " + abs(player_x - x) + " units east.")
         else:
             print("Cannot go east.")
     if x < player_x:
-        if canGoWest(x):
+        if canGoWest():
             goWest(abs(player_x - x))
             print("Moved " + abs(player_x - x) + " units west.")
         else:
             print("Cannot go west.")
     if y > player_y:
-        if canGoNorth(y):
+        if canGoNorth():
             goNorth(abs(player_y - y))
             print("Moved " + abs(player_y - y) + " units north.")
         else:
             print("Cannot go north.")
     if y < player_y:
-        if canGoSouth(y):
+        if canGoSouth():
             goSouth(abs(player_y - y))
             print("Moved " + abs(player_y - y) + " units south.")
         else:
@@ -43,47 +43,13 @@ def setLocation(x: int, y: int) -> bool:
 
 
 def canGoEast(x: int) -> bool:
-    if map[player_y][x] == 0:
-        return False
-    else:
-        return True
+    if map[x] == 0:
 
 
-def canGoWest(x: int) -> bool:
-    if map[player_y][x] == 0:
-        return False
-    else:
-        return True
-
-def canGoNorth(y: int) -> bool:
-    if map[y][player_x] == 0:
-        return False
-    else:
-        return True
-
-def canGoSouth(y: int) -> bool:
-    if map[y][player_x] == 0:
-        return False
-    else:
-        return True
+def canGoWest() -> bool:
 
 
-def goEast(x: int):
-    for i in range(abs(player_x - x)):
-        map[player_y][player_x + i] = 7
-    player_x += x
+def canGoNorth() -> bool:
 
-def goWest(x: int):
-    for i in range(abs(player_x - x)):
-        map[player_y][player_x - i] = 7
-    player_x -= x
 
-def goNorth(y: int):
-    for i in range(abs(player_y - y)):
-        map[player_y + i][player_x] = 7
-    player_y += y
-
-def goSouth(y: int):
-    for i in range(abs(player_y - y)):
-        map[player_y - i][player_x] = 7
-    player_y -= y
+def canGoSouth() -> bool:
