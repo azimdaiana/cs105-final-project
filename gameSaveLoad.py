@@ -1,6 +1,7 @@
 from movementFunctions import getCurrentLocation
 from userInterface import uni_map
 from import riddles_solved
+import matplotlib as plt
 
 
 prevPlay = {
@@ -15,5 +16,6 @@ lastGame.write(prevPlay)
 lastGame.close()
 
 from PIL import Image
-img = Image.open('jail.jpg')
-img.show()
+img = Image.open("jail.jpg")
+plt.imshow(img)
+plt.show()
