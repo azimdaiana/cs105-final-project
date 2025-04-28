@@ -29,6 +29,7 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
+    #adding enemies on the path
     if cols > 5: #randomizes the number of enemies depending on the size of the map
         numEnemies = randint(2, cols-1)
     else:
