@@ -1,4 +1,5 @@
 from loadingMaps import load_map
+from userInterface import UI
 from typing import List
 
 #prints map when given input "print" and "map(number)" as parameter values
