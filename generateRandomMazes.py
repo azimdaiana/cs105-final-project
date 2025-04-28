@@ -16,6 +16,7 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
     currentCol = randint(0, cols-1)
     currentRow = 0
     grid[currentRow][currentCol] = 1 #the start
+    path = [(currentRow, currentCol)] #initiating a path
 
     #creating a path through the map
     while currentRow < rows - 1:
@@ -27,9 +28,17 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
         elif direction == "right" and currentCol < cols - 1:
             currentCol += 1
         grid[currentRow][currentCol] = 1 #updates the 0 at the location to a 1
+        path.append([currentRow, currentCol]) #saves the path to the goal
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
+    if len(path) > 1: #puts in 1 enemy on the path to the goal
+        enemyPosPoss = path[:-1] #possible enemy locations
+        enemyPos = choice(enemyPosPoss) #randomized enemy position
+        enemyRow = enemyPos[0]
+        enemyCol = enemyPos[1]
+        grid[enemyRow][enemyCol] = 3 #position of the enemy
+
     return grid
-#add a rando number for an enemey
-print(randomMaze(3, 5))
+
+print(randomMaze(5, 5))
