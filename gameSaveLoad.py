@@ -1,9 +1,12 @@
-from movement_functions import getCurrentLocation
+from movementFunctions import getCurrentLocation
+from userInterface import uni_map
+from import riddles_solved
+
 
 prevPlay = {
     "lastLoc": getCurrentLocation,
-    "map": load_map,
-    "enemiesDef": enemiesDef
+    "map": uni_map,
+    "riddlesSolved": riddles_solved
 }
 
 lastGame = open("lastGameSaved", "w")
@@ -12,6 +15,5 @@ lastGame.write(prevPlay)
 lastGame.close()
 
 from PIL import Image
-img = Image.open('enemy.png')
-# Display the image
+img = Image.open('jail.jpg')
 img.show()
