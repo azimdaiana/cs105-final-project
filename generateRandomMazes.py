@@ -1,21 +1,50 @@
 from typing import List
-from random import randint
+from random import randint, choice
 
 def randomMaze(rows:int, cols:int) -> List[List[int]]:
-    grid: List[List[int]] = []
-    for i in range(cols-1):
-        row: List[int] = []
-        for j in range(rows):
-            row.append(randint(0, 1))
+    grid: List[List[int]] = [] #empty map
+    for i in range(rows): #create an empty map of only 0s (walls)
+        row = []
+        for j in range(cols):
+            row.append(0)
         grid.append(row)
-    exitRow: List[int] = []
-    for k in range(rows-2):
-        exitRow.append(randint(0, 1))
-        exitRow.append(2)
-        exitRow.append(randint(0, 1))
-    grid.append(exitRow)
-    end = randint(0, rows)
-    # grid = grid[end] + [2]
+
+    #starting points
+    currentCol = randint(0, cols-1)
+    currentRow = 0
+    grid[currentRow][currentCol] = 1 #the start
+    path = [(currentRow, currentCol)] #initiating a path
+
+    #creating a path through the map
+    while currentRow < rows - 1:
+        direction = choice(["down", "left", "right"]) #randomly choose a direction
+        if direction == "down" and currentRow + 1 < rows:
+            currentRow += 1
+        elif direction == "left" and currentCol > 0:
+            currentCol -= 1
+        elif direction == "right" and currentCol < cols - 1:
+            currentCol += 1
+        grid[currentRow][currentCol] = 1 #updates the 0 at the location to a 1
+        path.append([currentRow, currentCol]) #saves the path to the goal
+
+    grid[currentRow][currentCol] = 2 #indicate the end goal
+
+    #adding enemies on the path
+    if cols > 5: #randomizes the number of enemies depending on the size of the map
+        numEnemies = randint(2, cols-1)
+    else:
+        numEnemies = randint(1, cols-1)
+
+    enemyPosPoss = path[:-1]  # possible enemy locations
+
+    for i in range(numEnemies):
+        if enemyPosPoss:
+            enemyPos = choice(enemyPosPoss) #randomized enemy position
+            enemyRow = enemyPos[0]
+            enemyCol = enemyPos[1]
+            grid[enemyRow][enemyCol] = 3 #position of the enemy
+            enemyPosPoss.remove(enemyPos) #removes the possibility of a repeat
+
     return grid
 
-print(randomMaze(3, 5))
+print(randomMaze(5, 5))

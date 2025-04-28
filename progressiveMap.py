@@ -1,6 +1,6 @@
 from loadingMaps import load_map
+from userInterface import UI
 from typing import List
-from movement_functions import getCurrentLocation
 
 #prints map when given input "print" and "map(number)" as parameter values
 def print_map(i):
@@ -15,13 +15,14 @@ def print_map(i):
     elif "print" and "map5" in i:
         return load_map("map5.txt")
 
-print(print_map(input()))
-
-#returns map with progess ('7' where player has been) when given current map configuration
-def progressive_map(c_map):
-    m = print_map(c_map)
-    l = getCurrentLocation()
-    m[l[0]][l[1]] = '7'
-    return m
-
-progressive_map("print map1")
+# print(print_map(input()))
+#
+# def print_map(i)->List[int]:
+#     m = []
+#     if 'print' and 'map1' in i:
+#         m = load_map('map1.txt')
+#     else:
+#         m = []
+#     return m
+#
+# print_map("print map1")
