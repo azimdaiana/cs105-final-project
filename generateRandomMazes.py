@@ -1,8 +1,5 @@
 from typing import List
 from random import randint, choice
-from progressiveMap import print_map
-
-print(print_map("map1.txt"))
 
 def randomMaze(rows:int, cols:int) -> List[List[int]]:
     grid: List[List[int]] = [] #empty map
@@ -32,12 +29,20 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
-    if len(path) > 1: #puts in 1 enemy on the path to the goal
-        enemyPosPoss = path[:-1] #possible enemy locations
-        enemyPos = choice(enemyPosPoss) #randomized enemy position
-        enemyRow = enemyPos[0]
-        enemyCol = enemyPos[1]
-        grid[enemyRow][enemyCol] = 3 #position of the enemy
+    if cols > 5: #randomizes the number of enemies depending on the size of the map
+        numEnemies = randint(2, cols-1)
+    else:
+        numEnemies = randint(1, cols-1)
+
+    enemyPosPoss = path[:-1]  # possible enemy locations
+
+    for i in range(numEnemies):
+        if enemyPosPoss:
+            enemyPos = choice(enemyPosPoss) #randomized enemy position
+            enemyRow = enemyPos[0]
+            enemyCol = enemyPos[1]
+            grid[enemyRow][enemyCol] = 3 #position of the enemy
+            enemyPosPoss.remove(enemyPos) #removes the possibility of a repeat
 
     return grid
 
