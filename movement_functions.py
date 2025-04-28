@@ -1,5 +1,5 @@
 
-#from Logic import precondition
+from Logic import precondition
 from loadingMaps import load_map
 from progressiveMap import print_map
 
@@ -7,7 +7,7 @@ player_x = 0
 player_y = 0
 map = print_map(input("Which map would you like?"))
 
-#this is a test comment
+
 def getCurrentLocation() -> tuple:
     location: tuple = (player_x, player_y)
     return location
@@ -16,7 +16,7 @@ print(getCurrentLocation())
 
 
 def setLocation(x: int, y: int) -> bool:
-    #precondition(x == player_x or y == player_y)
+    precondition(x == player_x or y == player_y)
     if x > player_x:
         if canGoEast(x):
             goEast(abs(player_x - x))
