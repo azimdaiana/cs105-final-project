@@ -10,3 +10,8 @@ lastGame = open("lastGameSaved", "w")
 lastGame.open()
 lastGame.write(prevPlay)
 lastGame.close()
+
+from PIL import Image
+img = Image.open('enemy.png')
+# Display the image
+img.show()
