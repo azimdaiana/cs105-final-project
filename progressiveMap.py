@@ -15,7 +15,7 @@ def print_map(i):
     elif "print" and "map5" in i:
         return load_map("map5.txt")
 
-print(print_map(input()))
+# print(print_map(input()))
 #
 # def print_map(i)->List[int]:
 #     m = []

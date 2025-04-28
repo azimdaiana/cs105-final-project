@@ -13,7 +13,7 @@ def getCurrentLocation() -> tuple:
 print(getCurrentLocation())
 
 
-def setLocation(x: int, y: int) -> bool
+def setLocation(x: int, y: int) -> bool:
     precondition(x == player_x or y == player_y)
     location: tuple = (player_x, player_y)
     if x > player_x:
