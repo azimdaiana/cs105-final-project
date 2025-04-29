@@ -21,4 +21,11 @@ def UI_start():
         if s == 'map1':
             uni_map = load_map('map1.txt')
 
+#sample code
+progress = input("Would you like to restore progress?(yes/no)")
+if progress == "yes":
+    pass #load game using dictionary
+else:
+    pass #start a new game
+
 print(UI_start())
