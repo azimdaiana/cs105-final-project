@@ -39,6 +39,8 @@ def UI_run(a):
             print(print_map(uni_map))
         if 'move' in i:
             l = input("Which direction, how many units?")
+            if 'east' in l:
+                goEast(1)
 
 
 
