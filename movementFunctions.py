@@ -99,3 +99,4 @@ def setLocation(x: int, y: int) -> bool:
             print("Cannot go south.")
 
 
+grid = load_map("map1.txt")
