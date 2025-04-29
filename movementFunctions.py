@@ -5,7 +5,7 @@ from progressiveMap import print_map
 
 player_x = 0
 player_y = 0
-map = print_map(input("Which map would you like?"))
+#map = print_map(input("Which map would you like?"))
 
 
 def getCurrentLocation() -> tuple:

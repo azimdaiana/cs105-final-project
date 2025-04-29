@@ -1,21 +1,22 @@
 from loadingMaps import load_map
-from userInterface import UI
+
 from typing import List
 
-#prints map when given input "print" and "map(number)" as parameter values
-def print_map(i):
-    if "print" and "map1" in i:
-        return load_map("map1.txt")
-    elif "print" and "map2" in i:
-        return load_map("map2.txt")
-    elif "print" and "map3" in i:
-        return load_map("map3.txt")
-    elif "print" and "map4" in i:
-        return load_map("map4.txt")
-    elif "print" and "map5" in i:
-        return load_map("map5.txt")
+#when given a current map in UI, prints map and players progress without showing path or solution to the game
+def print_map(map):
+   player_map = []
 
-print(print_map(input()))
+   for i in map:
+       f = []
+       for l in i:
+           if l == 0 or l ==7:
+               f.append(l)
+           else:
+               f.append(0)
+       player_map.append(f)
+   return player_map
+
+#print(print_map(input()))
 #
 # def print_map(i)->List[int]:
 #     m = []

@@ -2,7 +2,7 @@ from typing import List
 from random import randint, choice
 from progressiveMap import print_map
 
-print(print_map("map1.txt"))
+#print(print_map("map1.txt"))
 
 def randomMaze(rows:int, cols:int) -> List[List[int]]:
     grid: List[List[int]] = [] #empty map
@@ -32,4 +32,4 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
 
     return grid
 #add a rando number for an enemey
-print(randomMaze(3, 5))
+#print(randomMaze(3, 5))
