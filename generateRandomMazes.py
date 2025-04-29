@@ -46,4 +46,3 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
             battlePosPoss.remove(battlePos) #removes the possibility of a repeat
 
     return grid
-
