@@ -47,4 +47,3 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
 
     return grid
 
-print(randomMaze(6, 6))
