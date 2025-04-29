@@ -1,24 +1,35 @@
 import blessed
 from loadingMaps import load_map
+from generateRandomMazes import randomMaze
+from progressiveMap import print_map
 uni_map = []
 term = blessed.Terminal()
-with term.fullscreen():
-    print(term.gold3('ZORK'))
-
-print(term.red('hi there'))
-with term.location(0, 10):
-    print('this is at the bottom')
-    print(term.fullscreen())
-
-def UI(map):
-    with term.fullscreen():
-        print(map)
+print('Welcome to ZORK, a text based adventure game.\nPlease select your map: map1, map2, map3, map4, map5. Or input map6 to generate your own map')
 
 def UI_start():
-    with term.location(0, 10):
-        print('Welcome to ZORK, a text based adventure game.\nPlease select your map: map1,map2,map3,map4,map5')
-        s = input()
-        if s == 'map1':
-            uni_map = load_map('map1.txt')
+    s = input()
+    p = 'you have selected a map'
+    if s == 'map1':
+        uni_map = load_map('map1.txt')
+    if s == 'map2':
+        uni_map = load_map('map2.txt')
+    if s == 'map3':
+        uni_map = load_map('map3.txt')
+    if s == 'map4':
+        uni_map = load_map('map4.txt')
+    if s == 'map5':
+        uni_map = load_map('map5.txt')
+    if s == 'map6':
+        r = int(input('how many rows will your maze have?'))
+        c = int(input('how many columns will your maze have'))
+        uni_map = randomMaze(r,c)
+    print(p)
+    return uni_map
+UI_start()
 
-print(UI_start())
+print('You are in a castle use commands ... to move and navigate and watch out for guards. Input your first move:')
+def UI_run():
+    i = input()
+    if 'print' in i:
+        print_map(i)
+UI_run()
