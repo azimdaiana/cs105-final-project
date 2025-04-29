@@ -1,10 +1,9 @@
 from movement_functions import player_x, player_y
-from typing import Dict
 import random
 
 first_num = 0
 operation = "+"
-second_num =  0
+second_num = 0
 solution = 0
 
 def generate_problem() -> str:
