@@ -1,0 +1,72 @@
+from PIL import Image
+from colorama import init, Fore, Back, Style
+import os
+
+# Initialize colorama
+init()
+
+# ASCII characters from dark to light
+ASCII_CHARS = "@%#*+=-:. "
+
+# Resize image
+def resize_image(image, new_width=80):
+    width, height = image.size
+    aspect_ratio = height / width
+    new_height = int(aspect_ratio * new_width * 0.55)  # Adjust height for terminal
+    return image.resize((new_width, new_height))
+
+# Convert image to grayscale
+def to_grayscale(image):
+    return image.convert("L")
+
+# Map each pixel to an ASCII char
+def pixel_to_ascii(image):
+    pixels = image.getdata()
+    ascii_str = ""
+    for pixel_value in pixels:
+        index = pixel_value * (len(ASCII_CHARS) - 1) // 255
+        ascii_str += ASCII_CHARS[index]
+    return ascii_str
+
+# Optional: Add color based on brightness
+def brightness_to_color(brightness):
+    if brightness > 200:
+        return Fore.WHITE
+    elif brightness > 150:
+        return Fore.LIGHTBLACK_EX
+    elif brightness > 100:
+        return Fore.YELLOW
+    elif brightness > 50:
+        return Fore.RED
+    else:
+        return Fore.BLACK
+
+# Main function
+def convert_image_to_ascii(image_path, new_width=80, use_color=False):
+    try:
+        image = Image.open(image_path)
+    except:
+        print(f"Unable to open image: {image_path}")
+        return
+
+    image = resize_image(image, new_width)
+    gray_image = to_grayscale(image)
+    ascii_str = pixel_to_ascii(gray_image)
+
+    # Format into lines
+    img_width = gray_image.width
+    ascii_img = [ascii_str[i:i+img_width] for i in range(0, len(ascii_str), img_width)]
+
+    for y, line in enumerate(ascii_img):
+        if use_color:
+            for x, char in enumerate(line):
+                pixel_brightness = gray_image.getpixel((x, y))
+                color = brightness_to_color(pixel_brightness)
+                print(color + char, end="")
+            print(Style.RESET_ALL)
+        else:
+            print(line)
+
+# Replace 'jail.jpg' with your image filename
+if __name__ == "__main__":
+    convert_image_to_ascii("jail.jpg", new_width=80, use_color=True)

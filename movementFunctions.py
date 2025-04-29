@@ -4,7 +4,7 @@ from progressiveMap import print_map
 
 player_x = 0
 player_y = 0
-map = print_map(input("Which map would you like?"))
+#map = print_map(input("Which map would you like?"))
 
 def canGoEast(x: int) -> bool:
     if map[player_y][x] == 0:
