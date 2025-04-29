@@ -32,24 +32,28 @@ def canGoSouth(y: int) -> bool:
 
 
 def goEast(x: int):
+    global player_y, player_x
     print(player_y)
     for i in range(abs(player_x - x)):
         map[player_y][player_x + i] = 7
     player_x = x
 
 def goWest(x: int):
+    global player_y, player_x
     print(player_y)
     for i in range(abs(player_x - x)):
         map[player_y][player_x - i] = 7
     player_x = x
 
 def goNorth(y: int):
+    global player_y, player_x
     print(player_y)
     for i in range(abs(player_y - y)):
         map[player_y + i][player_x] = 7
     player_y = y
 
 def goSouth(y: int):
+    global player_y, player_x
     print(player_y)
     for i in range(abs(player_y - y)):
         map[player_y - i][player_x] = 7
@@ -93,6 +97,5 @@ def setLocation(x: int, y: int) -> bool:
             print("Moved " + abs(player_y - y) + " units south.")
         else:
             print("Cannot go south.")
-
 
 

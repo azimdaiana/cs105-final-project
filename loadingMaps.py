@@ -3,7 +3,7 @@ from typing import List
 def load_map(fileName: str) -> List[List[int]]:
     file = open(fileName, "r")
     firstLine = file.readline() #reads the dimensions
-    print(firstLine)
+    # print(firstLine)
     rows, cols = map(int, firstLine.split("x")) #splits the first line using the x to parse the dimensions and converts to ints
     grid = []
 

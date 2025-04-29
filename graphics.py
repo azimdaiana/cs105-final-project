@@ -46,3 +46,5 @@ def main(image, newWidth):
     #       print(f"Error while writing to the file: {e}")
     # except Exception as e:
     #   print(f"Error while opening the file: {e}")
+
+print(main("guard.jpg",30))
