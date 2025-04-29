@@ -2,11 +2,9 @@
 from Logic import precondition
 from loadingMaps import load_map
 from progressiveMap import print_map
-from enemies import guard_found
 
 player_x = 0
 player_y = 0
-riddles_solved = 0
 map = print_map(input("Which map would you like?"))
 
 
@@ -74,23 +72,18 @@ def goEast(x: int):
     for i in range(abs(player_x - x)):
         map[player_y][player_x + i] = 7
     player_x = x
-    guard_found()
-
 
 def goWest(x: int):
     for i in range(abs(player_x - x)):
         map[player_y][player_x - i] = 7
     player_x = x
-    guard_found()
 
 def goNorth(y: int):
     for i in range(abs(player_y - y)):
         map[player_y + i][player_x] = 7
     player_y = y
-    guard_found()
 
 def goSouth(y: int):
     for i in range(abs(player_y - y)):
         map[player_y - i][player_x] = 7
     player_y = y
-    guard_found()

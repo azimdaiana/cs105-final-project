@@ -29,22 +29,22 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
-    #adding enemies on the path
-    if cols > 5: #randomizes the number of enemies depending on the size of the map
-        numEnemies = randint(2, cols-1)
+    #adding battles on the path
+    if cols > 5: #randomizes the number of battles depending on the size of the map
+        numBattles = randint(4, cols+1)
     else:
-        numEnemies = randint(1, cols-1)
+        numBattles = randint(2, cols+1)
 
-    enemyPosPoss = path[:-1]  # possible enemy locations
+    battlePosPoss = path[:-1]  # possible enemy locations
 
-    for i in range(numEnemies):
-        if enemyPosPoss:
-            enemyPos = choice(enemyPosPoss) #randomized enemy position
-            enemyRow = enemyPos[0]
-            enemyCol = enemyPos[1]
-            grid[enemyRow][enemyCol] = 3 #position of the enemy
-            enemyPosPoss.remove(enemyPos) #removes the possibility of a repeat
+    for i in range(numBattles):
+        if battlePosPoss:
+            battlePos = choice(battlePosPoss) #randomized battle position
+            battleRow = battlePos[0]
+            battleCol = battlePos[1]
+            grid[battleRow][battleCol] = 3 #position of the battle
+            battlePosPoss.remove(battlePos) #removes the possibility of a repeat
 
     return grid
 
-print(randomMaze(5, 5))
+print(randomMaze(6, 6))

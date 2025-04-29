@@ -1,12 +1,17 @@
-from movement_functions import getCurrentLocation
+from movementFunctions import getCurrentLocation
+from userInterface import uni_map
+# from enemies import riddles_solved
+
+
 
 prevPlay = {
     "lastLoc": getCurrentLocation,
-    "map": load_map,
-    "enemiesDef": enemiesDef
+    "map": uni_map,
+    # "riddlesSolved": riddles_solved
 }
 
-lastGame = open("lastGameSaved", "w")
-lastGame.open()
-lastGame.write(prevPlay)
-lastGame.close()
+# lastGame = open("lastGameSaved", "w")
+# lastGame.open()
+# lastGame.write(prevPlay)
+# lastGame.close()
+
