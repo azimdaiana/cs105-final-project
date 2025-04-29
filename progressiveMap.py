@@ -1,5 +1,6 @@
 from loadingMaps import load_map
-#from userInterface import uni_map
+from userInterface import UI
+from typing import List
 
 #prints map when given input "print" and "map(number)" as parameter values
 def print_map(i):
@@ -13,10 +14,8 @@ def print_map(i):
         return load_map("map4.txt")
     elif "print" and "map5" in i:
         return load_map("map5.txt")
-    '''elif "print" and "map" in i:
-        return uni_map'''
 
-
+print(print_map(input()))
 #
 # def print_map(i)->List[int]:
 #     m = []
