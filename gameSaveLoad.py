@@ -1,6 +1,6 @@
 from movementFunctions import getCurrentLocation
 from userInterface import uni_map
-from import riddles_solved
+from enemies import riddles_solved
 import matplotlib as plt
 
 
