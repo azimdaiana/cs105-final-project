@@ -30,13 +30,16 @@ def UI_start():
     return uni_map
 uni_map = UI_start()
 
-
+alive = True
 print('You are in a castle use commands ... to move and navigate and watch out for guards. Input your first move:')
-def UI_run():
-    i = input()
-    if 'print' in i:
-        print(print_map(uni_map))
-    if 'move' in i:
-        print(goEast(2))
+def UI_run(a):
+    while a == True:
+        i = input()
+        if 'print' in i:
+            print(print_map(uni_map))
+        if 'move' in i:
+            l = input("Which direction, how many units?")
 
-UI_run()
+
+
+UI_run(alive)
