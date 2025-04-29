@@ -23,7 +23,7 @@ def pixelToAscii(image):
         asciiStr += ASCIICHAR[index]
     return asciiStr
 
-def main(image, newWidth):
+def graphic(image, newWidth):
     try:
         image = Image.open(image)
     except:
@@ -46,5 +46,3 @@ def main(image, newWidth):
     #       print(f"Error while writing to the file: {e}")
     # except Exception as e:
     #   print(f"Error while opening the file: {e}")
-
-print(main("guard.jpg",30))

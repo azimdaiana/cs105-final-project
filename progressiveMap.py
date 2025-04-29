@@ -26,4 +26,4 @@ def print_map(map):
 #         m = []
 #     return m
 #
-print(print_map("print map1"))
+# print(print_map("print map1"))

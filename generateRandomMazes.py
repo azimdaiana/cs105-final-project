@@ -45,6 +45,7 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
             grid[battleRow][battleCol] = 3 #position of the battle
             battlePosPoss.remove(battlePos) #removes the possibility of a repeat
 
+    grid[0][0] = 1
     return grid
 
 print(randomMaze(6, 6))
