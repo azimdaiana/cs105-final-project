@@ -1,8 +1,5 @@
 from typing import List
 from random import randint, choice
-from progressiveMap import print_map
-
-#print(print_map("map1.txt"))
 
 def randomMaze(rows:int, cols:int) -> List[List[int]]:
     grid: List[List[int]] = [] #empty map
@@ -16,6 +13,7 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
     currentCol = randint(0, cols-1)
     currentRow = 0
     grid[currentRow][currentCol] = 1 #the start
+    path = [(currentRow, currentCol)] #initiating a path
 
     #creating a path through the map
     while currentRow < rows - 1:
@@ -27,9 +25,26 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
         elif direction == "right" and currentCol < cols - 1:
             currentCol += 1
         grid[currentRow][currentCol] = 1 #updates the 0 at the location to a 1
+        path.append([currentRow, currentCol]) #saves the path to the goal
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
+    #adding battles on the path
+    if cols > 5: #randomizes the number of battles depending on the size of the map
+        numBattles = randint(4, cols+1)
+    else:
+        numBattles = randint(2, cols+1)
+
+    battlePosPoss = path[:-1]  # possible enemy locations
+
+    for i in range(numBattles):
+        if battlePosPoss:
+            battlePos = choice(battlePosPoss) #randomized battle position
+            battleRow = battlePos[0]
+            battleCol = battlePos[1]
+            grid[battleRow][battleCol] = 3 #position of the battle
+            battlePosPoss.remove(battlePos) #removes the possibility of a repeat
+
     return grid
-#add a rando number for an enemey
-#print(randomMaze(3, 5))
+
+print(randomMaze(6, 6))
