@@ -57,6 +57,7 @@ def UI_run(a):
         if 'move' in i:
             l = input("Which direction, how many units?")
             digit = l.split(',')
+            print(digit)
             if 'east' in l:
                 goEast(digit[1])
             if 'west' in l:
@@ -79,7 +80,7 @@ def UI_run(a):
 
 
 
-UI_run(alive)
+print(UI_run(alive))
 
 with term.fullscreen():
     print(term.gold3('ZORK'))
