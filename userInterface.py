@@ -52,7 +52,7 @@ def UI_run(a):
 
         if 'move' in i:
             l = input("Which direction, how many units?")
-            digit = l.spilt(',')
+            digit = l.split(',')
             if 'east' in l:
                 goEast(digit[1])
             if 'west' in l:
