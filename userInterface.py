@@ -2,17 +2,7 @@ import blessed
 from loadingMaps import load_map
 from gameSaveLoad import savingGame
 from movementFunctions import getCurrentLocation, grid
-
-
 uni_map = []
-term = blessed.Terminal()
-with term.fullscreen():
-    print(term.gold3('ZORK'))
-
-print(term.red('hi there'))
-with term.location(0, 10):
-    print('this is at the bottom')
-    print(term.fullscreen())
 
 def UI(map):
     with term.fullscreen():

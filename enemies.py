@@ -5,9 +5,9 @@ from graphics import graphic
 
 def generate_problem() -> str:
     operations: list = ["+", "-", "*"]
-    first_num = random.randint(1, 12)
-    operation = random.choice(operations)
-    second_num = random.randint(1, 12)
+    first_num = randint(1, 12)
+    operation = choice(operations)
+    second_num = randint(1, 12)
     if operation == "+":
         solution = first_num + second_num
     elif operation == "-":
