@@ -93,18 +93,18 @@ def setLocation(x: int, y: int) -> bool:
             print("Cannot go south.")
     progMap[player_y][player_x] = 7
 
-grid = load_map("map1.txt")
-print(grid)
-print(" ")
-progMap = print_map(grid)
-print(progMap)
-print(getCurrentLocation())
-print(" ")
-setLocation(1,0)
-setLocation(2,0)
+# grid = load_map("map1.txt")
+# print(grid)
+# print(" ")
+# progMap = print_map(grid)
+# print(progMap)
+# print(getCurrentLocation())
+# print(" ")
+# setLocation(1,0)
+# setLocation(2,0)
 # setLocation(2,0) #1st param columns, 2nd param rows
 # print(maze)
-# # setLocation(2,1)
+# setLocation(2,1)
 # setLocation(1,0)
 
 # setLocation(1, 1)

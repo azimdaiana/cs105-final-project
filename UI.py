@@ -76,6 +76,9 @@ def UI_run(a):
         print('huh? try a different action')
 
 
+
+
+
 UI_run(alive)
 
 with term.fullscreen():
