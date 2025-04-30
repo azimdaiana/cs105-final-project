@@ -2,9 +2,9 @@ from Logic import precondition
 from loadingMaps import load_map
 from progressiveMap import print_map
 
-player_x = 0
-player_y = 0
-#map = print_map(input("Which map would you like?"))
+# player_x = 0
+# player_y = 0
+# map = print_map(input("Which map would you like?"))
 
 def canGoEast(x: int) -> bool:
     if grid[player_y][x] == 0:

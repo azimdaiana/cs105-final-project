@@ -16,7 +16,7 @@ def generate_problem() -> str:
         solution = first_num * second_num
     return str(first_num) + " " + operation + " " + str(second_num), int(solution)
 
-def guard_found(grid, player_y, player_x) :
+def guard_found(grid, player_y, player_x):
     if grid[player_y][player_x] == 3:
         problem, solution = generate_problem()
         print(graphic("guard.jpg", 25))
