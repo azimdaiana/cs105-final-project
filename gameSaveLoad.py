@@ -1,21 +1,16 @@
 from movementFunctions import getCurrentLocation
 from userInterface import uni_map
-from enemies import riddles_solved
-import matplotlib as plt
+from movementFunctions import grid
+import json
+# from enemies import riddles_solved
 
+def savingGame():
+    prevPlay = {
+            "lastLoc": getCurrentLocation(),
+            "grid": grid,
+            # "progMap": uni_map,
+        }
 
-prevPlay = {
-    "lastLoc": getCurrentLocation,
-    "map": uni_map,
-    "riddlesSolved": riddles_solved
-}
+    with open('lastGameSaved.json', 'w') as lastGame:
+        json.dump(prevPlay, lastGame)
 
-lastGame = open("lastGameSaved", "w")
-lastGame.open()
-lastGame.write(prevPlay)
-lastGame.close()
-
-from PIL import Image
-img = Image.open("jail.jpg")
-plt.imshow(img)
-plt.show()
