@@ -95,57 +95,59 @@ def print_map(map):
        player_map.append(f)
     return player_map
 
+player_x = 0
+player_y = 0
 
-def canGoEast(x: int) -> bool:
+def canGoEast(x: int, grid) -> bool:
     if grid[player_y][x] == 0:
         return False
     else:
         return True
 
 
-def canGoWest(x: int) -> bool:
+def canGoWest(x: int, grid) -> bool:
     if grid[player_y][x] == 0:
         return False
     else:
         return True
 
 
-def canGoNorth(y: int) -> bool:
+def canGoNorth(y: int, grid) -> bool:
     if grid[y][player_x] == 0:
         return False
     else:
         return True
 
 
-def canGoSouth(y: int) -> bool:
+def canGoSouth(y: int, grid) -> bool:
     if grid[y][player_x] == 0:
         return False
     else:
         return True
 
 
-def goEast(x: int):
+def goEast(x: int, progMap):
     global player_y, player_x
     for i in range(abs(player_x - x)):
         progMap[player_y][player_x + i] = 7
     player_x = x
 
 
-def goWest(x: int):
+def goWest(x: int, progMap):
     global player_y, player_x
     for i in range(abs(player_x - x)):
         progMap[player_y][player_x - i] = 7
     player_x = x
 
 
-def goNorth(y: int):
+def goNorth(y: int, progMap):
     global player_y, player_x
     for i in range(abs(player_y - y)):
         progMap[player_y - i][player_x] = 7
     player_y = y
 
 
-def goSouth(y: int):
+def goSouth(y: int, progMap):
     global player_y, player_x
     for i in range(abs(player_y - y)):
         progMap[player_y + i][player_x] = 7
@@ -157,35 +159,37 @@ def getCurrentLocation() -> tuple:
     return location
 
 
-def setLocation(x: int, y: int) -> bool:
+def setLocation(x: int, y: int, grid, progMap):
     precondition(x == player_x or y == player_y)
     if x < 0 or y < 0:
         print("Please input a positive index.")
     elif x > player_x:
-        if canGoEast(x):
+        if canGoEast(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units east.")
-            goEast(abs(player_x - x))
+            goEast(abs(player_x - x), progMap)
+            return "pring"
         else:
-            print("Cannot go east.")
+            return "Cannot go east."
 
     elif x < player_x:
-        if canGoWest(x):
+        if canGoWest(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units west.")
-            goWest(abs(player_x - x))
+            return goWest(abs(player_x - x),progMap)
         else:
             print("Cannot go west.")
 
+
     elif y < player_y:
-        if canGoNorth(y):
+        if canGoNorth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units north.")
-            goNorth(abs(player_y - y))
+            goNorth(abs(player_y - y), progMap)
         else:
             print("Cannot go north.")
 
     elif y > player_y:
-        if canGoSouth(y):
+        if canGoSouth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units south.")
-            goSouth(abs(player_y - y))
+            goSouth(abs(player_y - y), progMap)
         else:
             print("Cannot go south.")
     progMap[player_y][player_x] = 7
@@ -216,4 +220,5 @@ def guard_found(grid, player_y, player_x):
             print("Off to the dungeon.")
             print(graphic("images.jpeg", 100))
 
-    guard_found(load_map("map2.txt"), 1, 3)
+
+# guard_found(load_map("map2.txt"), 1, 3)

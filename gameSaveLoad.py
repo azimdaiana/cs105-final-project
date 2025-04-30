@@ -1,5 +1,4 @@
 from movementFunctions import getCurrentLocation
-from userInterface import uni_map
 from movementFunctions import grid
 import json
 # from enemies import riddles_solved

@@ -1,113 +1,85 @@
 import blessed
-from loadingMaps import load_map
-from generateRandomMazes import randomMaze
-from progressiveMap import print_map
-from movementFunctions import goEast
-from movementFunctions import goWest
-from movementFunctions import goNorth
-from movementFunctions import goSouth
-player_x = 0
-player_y = 0
-from gameSaveLoad import savingGame
-from movementFunctions import getCurrentLocation, grid
-
-
-uni_map = []
+from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem
 
 term = blessed.Terminal()
-print('Welcome to ZORK, a text based adventure game.\nPlease select your map: map1, map2, map3, map4, map5, save. Or input map6 to generate your own map')
 
-def save():
-    s = uni_map
-    return s
-save1 = save()
+#TODO
+# def save():
+#     s = uni_map
+#     return s
+# save1 = save()
 
-def UI_start():
-    s = input()
-    p = 'you have selected a map'
+def selectMap():
+    s = input("Welcome to ZORK, a text based adventure game.\nPlease select your map: map1, map2, map3, map4, map5, save. Or input map6 to generate your own map\n")
     if s == 'map1':
-        uni_map = load_map('map1.txt')
+        grid = load_map('map1.txt')
     if s == 'map2':
-        uni_map = load_map('map2.txt')
+        grid = load_map('map2.txt')
     if s == 'map3':
-        uni_map = load_map('map3.txt')
+        grid = load_map('map3.txt')
     if s == 'map4':
-        uni_map = load_map('map4.txt')
+        grid = load_map('map4.txt')
     if s == 'map5':
-        uni_map = load_map('map5.txt')
+        grid = load_map('map5.txt')
     if s == 'map6':
-        r = int(input('how many rows will your maze have?'))
-        c = int(input('how many columns will your maze have'))
-        uni_map = randomMaze(r,c)
-    if s == 'save':
-        uni_map = save1
-    print(p)
-    return uni_map
-uni_map = UI_start()
+        r = int(input('how many rows will your grid have?'))
+        c = int(input('how many columns will your grid have'))
+        grid = randomMaze(r,c)
+    print(f'You have selected a map that is {len(grid)}x{len(grid[0])} dimensions')
+    return grid
 
-alive = True
-print('You are in a castle use commands ... to move and navigate and watch out for guards. Input your first move:')
-def UI_run(a):
-    while a == True:
-        i = input()
-        key_words = ['print','move','save']
-        if 'print' in i:
-            print(print_map(uni_map))
+grid = selectMap()
+progMap = print_map(grid)
 
-        if 'move' in i:
-            l = input("Which direction, how many units?")
-            digit = l.split(',')
-            print(digit)
-            if 'east' in l:
-                goEast(digit[1])
-            if 'west' in l:
-                goWest(digit[1])
-            if 'north' in l:
-                goNorth(digit[1])
-            if 'south' in l:
-                goSouth(digit[1])
+print('You are in a castle, trying to find your way out. You can use commands like: north, south, west, east with the number of units you want to move.\n'
+      'However, beware of the guards guarding the castle, they might challenge you to a battle!\n'
+      'Get ready, the game is about to launch!'
+      f"Reminder, this is what your maze looks like {progMap} \n"
+      "There is a hidden walkable path that you have to figure out using trial and error, and of course the commands!\n"
+      "You will start at the top left corner of the maze.\n"
+      )
 
-        if 'save' in i:
-            save()
-            print('map saved')
+def UI_run():
+    print(f"Your current location is {getCurrentLocation()}")
+    direction = input("Which direction would you like to go? (north/south/east/west)\n")
+    distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
 
-        for l in key_words:
-            string = ""+l
-    if i not in string:
-        print('huh? try a different action')
+    if direction == "west" or direction == "east":
+        distMoved = setLocation(distance, 0, grid, progMap)
+    if direction == "south" or direction == "north":
+        distMoved = setLocation(0, distance, grid, progMap)
 
-
+    if "Cannot" in distMoved:
+        print(f"You have not moved, your location is still {getCurrentLocation()}")
+    else:
+        print(f"Your current location is {getCurrentLocation()}\n"
+        f"Your current progress map is {progMap}")
+    player_x = 0
+    player_y = 0
+    # print(progMap)
+    i = input()
+    key_words = ['print', 'move', 'save']
+    if 'print' in i:
+        print(print_map(grid))
 
 
-
-print(UI_run(alive))
-
-with term.fullscreen():
-    print(term.gold3('ZORK'))
-
-print(term.red('hi there'))
-with term.location(0, 10):
-    print('this is at the bottom')
-    print(term.fullscreen())
-
-def UI(map):
-    with term.fullscreen():
-        print(map)
-
-def UI_start():
-    with term.location(0, 10):
-        print('Welcome to ZORK, a text-based adventure game.\nPlease select your map: map1, map2, map3, map4, map5')
-        s = input()
-        if s == 'map1':
-            uni_map = load_map('map1.txt')
+UI_run()
 
 
-print(UI_start())
+# def UI_start():
+#     with term.location(0, 10):
+#         print('Welcome to ZORK, a text-based adventure game.\nPlease select your map: map1, map2, map3, map4, map5')
+#         s = input()
+#         if s == 'map1':
+#             uni_map = load_map('map1.txt')
+#
+#
+# print(UI_start())
 
-#sample code
-progress = input("Would you like to save your progress?(yes/no)")
-if progress == "yes":
-    print(savingGame())
-
-else:
-    pass #start a new game
+# #sample code
+# progress = input("Would you like to save your progress?(yes/no)")
+# if progress == "yes":
+#     print(savingGame())
+#
+# else:
+#     pass #start a new game
