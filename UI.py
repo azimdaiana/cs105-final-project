@@ -47,23 +47,24 @@ def UI_run():
     #continuous input dependent on if the player wins or not
     while win == False:
         i = str(input()).lower
-        direction = input("Which direction would you like to go? (north/south/east/west)\n")
-        distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
+        if "move" in i:
+            direction = input("Which direction would you like to go? (north/south/east/west)\n")
+            distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
 
-        if direction == "west" or direction == "east":
-            distMoved = setLocation(distance, 0, grid, progMap)
-        if direction == "south" or direction == "north":
-            distMoved = setLocation(0, distance, grid, progMap)
+            if direction == "west" or direction == "east":
+                distMoved = setLocation(distance, 0, grid, progMap)
+            if direction == "south" or direction == "north":
+                distMoved = setLocation(0, distance, grid, progMap)
 
-        if "Cannot" in distMoved:
-            print(f"You have not moved, your location is still {getCurrentLocation()}")
-        else:
-            print(f"Your current location is {getCurrentLocation()}\n"
-                  f"Your current progress map is {progMap}")
-        if grid[p_x][p_y] == 2:
-            print('you have defeated this level!!')
-            win = True
-    print(f"Your current location is {getCurrentLocation()}")
+            if "Cannot" in distMoved:
+                print(f"You have not moved, your location is still {getCurrentLocation()}")
+            else:
+                print(f"Your current location is {getCurrentLocation()}\n"
+                      f"Your current progress map is {progMap}")
+            if grid[p_x][p_y] == 2:
+                print('you have defeated this level!!')
+                win = True
+        print(f"Your current location is {getCurrentLocation()}")
 
     #add continuous prompting so the UI doesn't just end the game
     #p = input()
