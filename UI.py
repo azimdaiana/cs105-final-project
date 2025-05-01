@@ -55,7 +55,7 @@ def UI_run():
     #p = input()
     #if move in p: (set direction and distance/continue movement conditionals)
     direction = input("Which direction would you like to go? (north/south/east/west)\n")
-    distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
+    distance = int(input("How many units would you like to move? (Please enter a number)\n"))
 
     if direction == "west" or direction == "east":
         distMoved = setLocation(distance, 0, grid, progMap)
