@@ -2,7 +2,7 @@ from loadingMaps import load_map
 
 from typing import List
 
-#when given a current map in UI, prints map and players progress without showing path or solution to the game
+#when given a current map in UI, prints map and players progress without showing path or solution to the game (prints '0' and '7')
 def print_map(map):
    player_map = []
 

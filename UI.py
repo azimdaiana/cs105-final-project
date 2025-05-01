@@ -9,6 +9,7 @@ term = blessed.Terminal()
 #     return s
 # save1 = save()
 
+#function selectMap starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
 def selectMap():
     s = input("Welcome to ZORK, a text based adventure game.\nPlease select your map: map1, map2, map3, map4, map5, save. Or input map6 to generate your own map\n")
     if s == 'map1':
@@ -40,6 +41,9 @@ print('You are in a castle, trying to find your way out. You can use commands li
       )
 
 def UI_run():
+    #add continuous prompting so the UI doesn't just end the game
+    #p = input()
+    #if move in p: (set direction and distance/continue movement conditionals)
     print(f"Your current location is {getCurrentLocation()}")
     direction = input("Which direction would you like to go? (north/south/east/west)\n")
     distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
