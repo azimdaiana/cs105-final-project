@@ -134,6 +134,7 @@ def goEast(x: int, progMap):
     for i in range(abs(player_x - x)):
         progMap[player_y][player_x + i] = 7
     player_x = x
+    return player_x
 
 
 def goWest(x: int, progMap):
@@ -141,6 +142,7 @@ def goWest(x: int, progMap):
     for i in range(abs(player_x - x)):
         progMap[player_y][player_x - i] = 7
     player_x = x
+    return player_x
 
 
 def goNorth(y: int, progMap):
@@ -148,6 +150,7 @@ def goNorth(y: int, progMap):
     for i in range(abs(player_y - y)):
         progMap[player_y - i][player_x] = 7
     player_y = y
+    return player_y
 
 
 def goSouth(y: int, progMap):
@@ -155,6 +158,7 @@ def goSouth(y: int, progMap):
     for i in range(abs(player_y - y)):
         progMap[player_y + i][player_x] = 7
     player_y = y
+    return player_y
 
 
 def getCurrentLocation() -> tuple:
@@ -162,38 +166,42 @@ def getCurrentLocation() -> tuple:
     return location
 
 
-def setLocation(x: int, y: int, grid, progMap):
+def setLocation(x: int, y: int, grid, progMap)-> bool:
     precondition(x == player_x or y == player_y)
     if x < 0 or y < 0:
         print("Please input a positive index.")
     elif x > player_x:
         if canGoEast(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units east.")
-            return goEast(abs(player_x - x), progMap)
+            goEast(abs(player_x - x), progMap)
+            return True
         else:
-            return "Cannot go east."
+            return False
 
     elif x < player_x:
         if canGoWest(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units west.")
-            return goWest(abs(player_x - x),progMap)
+            goWest(abs(player_x - x), progMap)
+            return True
         else:
-            return "Cannot go west."
+            return False
 
 
     elif y < player_y:
         if canGoNorth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units north.")
-            return goNorth(abs(player_y - y), progMap)
+            goNorth(abs(player_y - y), progMap)
+            return True
         else:
-            return "Cannot go north."
+            return False
 
     elif y > player_y:
         if canGoSouth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units south.")
-            return goSouth(abs(player_y - y), progMap)
+            goSouth(abs(player_y - y), progMap)
+            return True
         else:
-            return "Cannot go south."
+            return False
     progMap[player_y][player_x] = 7
 
 def generate_problem() -> str:

@@ -64,11 +64,11 @@ def UI_run():
     if direction == "south" or direction == "north":
         distMoved = setLocation(0, distance, grid, progMap)
 
-    if "Cannot" in distMoved:
-        print(f"There is a wall! You have not moved, your location is still {getCurrentLocation()}")
-    else:
+    if distMoved:
         print(f"Your current location is {getCurrentLocation()}\n"
-        f"Your current progress map is {progMap}")
+              f"Your current progress map is {progMap}")
+    else:
+        print(f"There is a wall! You have not moved, your location is still {getCurrentLocation()}")
     player_x = 0
     player_y = 0
     # print(progMap)
