@@ -46,3 +46,5 @@ def graphic(image, newWidth):
     #       print(f"Error while writing to the file: {e}")
     # except Exception as e:
     #   print(f"Error while opening the file: {e}")
+
+# print(graphic("guard.jpg", 25))
