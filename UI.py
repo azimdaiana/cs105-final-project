@@ -40,11 +40,20 @@ print('You are in a castle, trying to find your way out. You can use commands li
       "You will start at the top left corner of the maze.\n"
       )
 
+p_x = getCurrentLocation()[0]
+p_y = getCurrentLocation()[1]
 def UI_run():
+    #continuous input dependent on if the player wins or not
+    while win == False:
+        i = input().lowercase
+        if grid[p_x][p_y] == 2:
+            print('you have defeated this level!!')
+            win = True
+    print(f"Your current location is {getCurrentLocation()}")
+
     #add continuous prompting so the UI doesn't just end the game
     #p = input()
     #if move in p: (set direction and distance/continue movement conditionals)
-    print(f"Your current location is {getCurrentLocation()}")
     direction = input("Which direction would you like to go? (north/south/east/west)\n")
     distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
 
@@ -61,7 +70,7 @@ def UI_run():
     player_x = 0
     player_y = 0
     # print(progMap)
-    i = input()
+
     key_words = ['print', 'move', 'save']
     if 'print' in i:
         print(print_map(grid))
