@@ -34,7 +34,7 @@ progMap = print_map(grid)
 
 print('You are in a castle, trying to find your way out. You can use commands like: north, south, west, east with the number of units you want to move.\n'
       'However, beware of the guards guarding the castle, they might challenge you to a battle!\n'
-      'Get ready, the game is about to launch!\n'
+      'Get ready, the game is about to launch!'
       f"Reminder, this is what your maze looks like {progMap} \n"
       "There is a hidden walkable path that you have to figure out using trial and error, and of course the commands!\n"
       "You will start at the top left corner of the maze.\n"
@@ -42,12 +42,24 @@ print('You are in a castle, trying to find your way out. You can use commands li
 
 p_x = getCurrentLocation()[0]
 p_y = getCurrentLocation()[1]
-
 def UI_run():
-    #continuous input dependent on if the player wins or not
     win = False
+    #continuous input dependent on if the player wins or not
     while win == False:
-        i = input().lowercase
+        i = str(input()).lower
+        direction = input("Which direction would you like to go? (north/south/east/west)\n")
+        distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
+
+        if direction == "west" or direction == "east":
+            distMoved = setLocation(distance, 0, grid, progMap)
+        if direction == "south" or direction == "north":
+            distMoved = setLocation(0, distance, grid, progMap)
+
+        if "Cannot" in distMoved:
+            print(f"You have not moved, your location is still {getCurrentLocation()}")
+        else:
+            print(f"Your current location is {getCurrentLocation()}\n"
+                  f"Your current progress map is {progMap}")
         if grid[p_x][p_y] == 2:
             print('you have defeated this level!!')
             win = True
@@ -56,19 +68,7 @@ def UI_run():
     #add continuous prompting so the UI doesn't just end the game
     #p = input()
     #if move in p: (set direction and distance/continue movement conditionals)
-    direction = input("Which direction would you like to go? (north/south/east/west)\n")
-    distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
 
-    if direction == "west" or direction == "east":
-        distMoved = setLocation(distance, 0, grid, progMap)
-    if direction == "south" or direction == "north":
-        distMoved = setLocation(0, distance, grid, progMap)
-
-    if distMoved:
-        print(f"Your current location is {getCurrentLocation()}\n"
-              f"Your current progress map is {progMap}")
-    else:
-        print(f"There is a wall! You have not moved, your location is still {getCurrentLocation()}")
     player_x = 0
     player_y = 0
     # print(progMap)
