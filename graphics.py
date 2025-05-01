@@ -47,4 +47,4 @@ def graphic(image, newWidth):
     # except Exception as e:
     #   print(f"Error while opening the file: {e}")
 
-print(graphic("guard.jpg", 25))
+# print(graphic("guard.jpg", 25))
