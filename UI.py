@@ -44,7 +44,7 @@ p_x = getCurrentLocation()[0]
 p_y = getCurrentLocation()[1]
 def UI_run():
     win = False
-    #continuous input dependent on if the player wins or not
+    #continuous input dependent on if the player wins
     while win == False:
         i = str(input()).lower
         direction = input("Which direction would you like to go? (north/south/east/west)\n")
