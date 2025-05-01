@@ -33,7 +33,7 @@ progMap = print_map(grid)
 
 print('You are in a castle, trying to find your way out. You can use commands like: north, south, west, east with the number of units you want to move.\n'
       'However, beware of the guards guarding the castle, they might challenge you to a battle!\n'
-      'Get ready, the game is about to launch!'
+      'Get ready, the game is about to launch!\n'
       f"Reminder, this is what your maze looks like {progMap} \n"
       "There is a hidden walkable path that you have to figure out using trial and error, and of course the commands!\n"
       "You will start at the top left corner of the maze.\n"
@@ -50,7 +50,7 @@ def UI_run():
         distMoved = setLocation(0, distance, grid, progMap)
 
     if "Cannot" in distMoved:
-        print(f"You have not moved, your location is still {getCurrentLocation()}")
+        print(f"There is a wall! You have not moved, your location is still {getCurrentLocation()}")
     else:
         print(f"Your current location is {getCurrentLocation()}\n"
         f"Your current progress map is {progMap}")
