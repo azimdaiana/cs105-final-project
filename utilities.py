@@ -4,7 +4,7 @@ from random import randint, choice
 from graphics import graphic
 
 
-def load_map(fileName: str, format) -> List[List[int]]:
+def load_map(fileName: str) -> List[List[int]]:
     """
     converts info stored in a txt file into a list that will be used as a maze for a user
     :param fileName: takes in a txt file that has a maze written in
