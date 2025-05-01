@@ -4,13 +4,16 @@ from random import randint, choice
 from graphics import graphic
 
 
-def load_map(fileName: str) -> List[List[int]]:
+def load_map(fileName: str, format) -> List[List[int]]:
     """
     converts info stored in a txt file into a list that will be used as a maze for a user
     :param fileName: takes in a txt file that has a maze written in
     :return: returns the maze in a list of lists
     """
+
     file = open(fileName, "r")
+    if type == "2D":
+        file.readlines()
     firstLine = file.readline() #reads the dimensions
     # print(firstLine)
     rows, cols = map(int, firstLine.split("x")) #splits the first line using the x to parse the dimensions and converts to ints
@@ -166,8 +169,7 @@ def setLocation(x: int, y: int, grid, progMap):
     elif x > player_x:
         if canGoEast(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units east.")
-            goEast(abs(player_x - x), progMap)
-            return "pring"
+            return goEast(abs(player_x - x), progMap)
         else:
             return "Cannot go east."
 
@@ -176,22 +178,22 @@ def setLocation(x: int, y: int, grid, progMap):
             print("Moved " + str(abs(player_x - x)) + " units west.")
             return goWest(abs(player_x - x),progMap)
         else:
-            print("Cannot go west.")
+            return "Cannot go west."
 
 
     elif y < player_y:
         if canGoNorth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units north.")
-            goNorth(abs(player_y - y), progMap)
+            return goNorth(abs(player_y - y), progMap)
         else:
-            print("Cannot go north.")
+            return "Cannot go north."
 
     elif y > player_y:
         if canGoSouth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units south.")
-            goSouth(abs(player_y - y), progMap)
+            return goSouth(abs(player_y - y), progMap)
         else:
-            print("Cannot go south.")
+            return "Cannot go south."
     progMap[player_y][player_x] = 7
 
 def generate_problem() -> str:
