@@ -1,1 +1,70 @@
-[[1, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1], [0, 0, 1, 1, 1], [0, 0, 0, 2, 0]]
+/usr/bin/python3.8 /homes/dazimova/cs105-final-project/UI.py
+Welcome to Medieval Math Mayhem, a text-based math adventure game!
+
+Your start time is Thu May  8 17:35:06 2025
+Choose how you would like to play the game: 
+1. Progress from pre-built maps (map1 -> map5)
+2. Generate a random map.
+3. Load a saved game
+
+Your choice: 1
+
+Your selected map has the following dimensions: 3x3
+You are currently trapped in a castle and must find your way out. To move, you must choose a direction (north, south, west, or east) to move 1 unit.
+However, beware of the guards positioned throughout the castle. They might challenge you to a battle!
+
+Reminder, this is what your maze looks like:
+[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+Find a path through the castle using the commands!
+You will start at the top left corner of the maze.
+0 0
+
+What would you like to do? (move/save): move
+Which direction would you like to go? (north/south/east/west): east
+
+Moved a unit east.
+Your current location is (1, 0) and current progress map is [[7, 7, 0], [0, 0, 0], [0, 0, 0]].
+
+What would you like to do? (move/save): move
+Which direction would you like to go? (north/south/east/west): south
+
+Moved a unit south.
+Your current location is (1, 1) and current progress map is [[7, 7, 0], [0, 7, 0], [0, 0, 0]].
+
+What would you like to do? (move/save): move
+Which direction would you like to go? (north/south/east/west): east
+
+Moved a unit east.
+Your current location is (2, 1) and current progress map is [[7, 7, 0], [0, 7, 7], [0, 0, 0]].
+
+What would you like to do? (move/save): move
+Which direction would you like to go? (north/south/east/west): south
+
+Moved a unit south.
+Your current location is (2, 2) and current progress map is [[7, 7, 0], [0, 7, 7], [0, 0, 7]].
+You found the exit!
+The actual maze was [[1, 1, 0], [0, 1, 1], [0, 0, 2]]
+
+Congratulations! You have escaped the castle.
+
+You have leveled up to map 2. 
+Your maze looks like this: [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
+0 0
+
+What would you like to do? (move/save): move
+Which direction would you like to go? (north/south/east/west): east
+Traceback (most recent call last):
+  File "/homes/dazimova/cs105-final-project/UI.py", line 127, in <module>
+    UI_run()
+  File "/homes/dazimova/cs105-final-project/UI.py", line 117, in UI_run
+    UI_run()
+  File "/homes/dazimova/cs105-final-project/UI.py", line 74, in UI_run
+    distMoved = setLocation(x + 1, y, grid, progMap)
+  File "/homes/dazimova/cs105-final-project/utilities.py", line 161, in setLocation
+    if precondition(x == player_x or y == player_y) == False:
+  File "/home/courses/python/logic.py", line 71, in precondition
+    raise PreconditionException
+logic.PreconditionException
+
+Process finished with exit code 1
