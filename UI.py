@@ -4,8 +4,6 @@ from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLo
 
 term = blessed.Terminal()
 
-player_x = 0
-player_y = 0
 currentMapNum = 1
 progressMade = False
 
@@ -102,7 +100,7 @@ def UI_run(start_x, start_y):
 
         elif "save" in i:
             savingGame(player_x, player_y, grid, progMap)
-            return win == True
+            return
 
         elif "print" in i:
             print(grid)
