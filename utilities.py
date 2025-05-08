@@ -158,34 +158,27 @@ def getCurrentLocation() -> tuple:
 
 def setLocation(x: int, y: int, grid, progMap)-> bool:
     global player_x, player_y
-    player_x, player_y = x, y
     if precondition(x == player_x or y == player_y) == False:
         print(f"You can only move in a straight line horizontally or vertically!")
         return False
-    # if x < 0 or y < 0:
-    #     print("Please input a positive index.")
     elif x > player_x:
         if canGoSouth(x, grid):
             goSouth(x, progMap)
             return True
         else:
             return False
-
     elif x < player_x:
         if canGoNorth(x, grid):
             goNorth(x, progMap)
             return True
         else:
             return False
-
-
     elif y < player_y:
         if canGoWest(y, grid):
             goWest(y, progMap)
             return True
         else:
             return False
-
     elif y > player_y:
         if canGoEast(y, grid):
             goEast(y, progMap)
