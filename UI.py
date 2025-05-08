@@ -26,7 +26,7 @@ def selectMap():
         try:
             print("The value for rows and columns must be greater than 1!")
             r = int(input('How many rows will your grid have? '))
-            c = int(input('How many columns will your grid have?'))
+            c = int(input('How many columns will your grid have? '))
             grid = randomMaze(r, c)
         except ValueError:
             print("Invalid input for grid size\n")
@@ -70,23 +70,23 @@ def UI_run():
             direction = input("Which direction would you like to go? (north/south/east/west): ")
             x, y = player_x, player_y
             if direction == "east":
-                distMoved = setLocation(x + 1, y, grid, progMap)
+                distMoved = setLocation(x, y + 1, grid, progMap, player_x, player_y)
             elif direction == "west":
-                distMoved = setLocation(x - 1, y, grid, progMap)
+                distMoved = setLocation(x, y - 1, grid, progMap, player_x, player_y)
             elif direction == "south":
-                distMoved = setLocation(x, y + 1, grid, progMap)
+                distMoved = setLocation(x + 1, y, grid, progMap, player_x, player_y)
             elif direction == "north":
-                distMoved = setLocation(x, y - 1, grid, progMap)
+                distMoved = setLocation(x - 1, y, grid, progMap, player_x, player_y)
             else:
                 print("\nInvalid direction. Please try again.")
                 continue
 
             player_x, player_y = getCurrentLocation()
-            progMap[player_y][player_x] = 7
+            progMap[player_x][player_y] = 7
 
             if distMoved == False:
-                print(f"You cannot move there, your location is still {getCurrentLocation()}")
-            elif grid[player_y][player_x] == 3:
+                print(f"\nYou cannot move there, your location is still {getCurrentLocation()}")
+            elif grid[player_x][player_y] == 3:
                 if guard_found() == True:
                     print(f"\nMoved a unit {direction}")
                     print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
@@ -103,7 +103,7 @@ def UI_run():
         elif "print" in i:
             print(grid)
 
-        if grid[player_y][player_x] == 2:
+        if grid[player_x][player_y] == 2:
             print(f"You found the exit!\nThe actual maze was {grid}\n")
             print('Congratulations! You have escaped this castle level.\n')
             open('lastGameSaved.json', 'w').close() #clears the last saved game
@@ -115,8 +115,8 @@ def UI_run():
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
         player_x, player_y = 0, 0
+        setLocation(0, 0, grid, progMap, player_x, player_y)
         print(f"Your maze looks like this: {progMap}")
-        print(player_x, player_y)
         UI_run()
     elif progressMade and currentMapNum == 5:
         print("Congrats! You have completed all of the pre-built levels.")
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     mins = int(timePlayed // 60)
     secs = int(timePlayed % 60)
     if mins > 0:
-        print(f"It has taken you {mins} minutes {secs} seconds to play the game")
+        print(f"It has taken you {mins} minutes {secs} seconds to play the game.")
     else:
-        print(f"It has taken you {secs} seconds to play the game")
+        print(f"It has taken you {secs} seconds to play the game.")
     print("Thanks for playing!\nRestart to play again.")

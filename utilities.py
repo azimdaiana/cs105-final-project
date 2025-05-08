@@ -93,104 +93,106 @@ def print_map(map):
 player_x = 0
 player_y = 0
 
-def canGoEast(x: int, grid) -> bool:
-    if x < 0 or x >= len(grid[0]):
-        print(f"Moving in this direction would be out of bound. Please try a different direction.")
+def canGoEast(y: int, grid) -> bool:
+    if y < 0 or y >= len(grid[0]):
+        print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
-    if grid[player_y][x] == 0:
-        return False
-    else:
-        return True
-
-def canGoWest(x: int, grid) -> bool:
-    if x < 0 or x >= len(grid[0]):
-        print(f"Moving in this direction would be out of bound. Please try a different direction.")
-        return False
-    if grid[player_y][x] == 0:
+    if grid[player_x][y] == 0:
         return False
     else:
         return True
 
-def canGoNorth(y: int, grid) -> bool:
-    if y < 0 or y >= len(grid):
-        print(f"Moving in this direction would be out of bound. Please try a different direction.")
+def canGoWest(y: int, grid) -> bool:
+    if y < 0 or y >= len(grid[0]):
+        print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
-    if grid[y][player_x] == 0:
-        return False
-    else:
-        return True
-
-def canGoSouth(y: int, grid) -> bool:
-    if y < 0 or y >= len(grid):
-        print(f"Moving in this direction would be out of bound. Please try a different direction.")
-        return False
-    if grid[y][player_x] == 0:
+    if grid[player_x][y] == 0:
         return False
     else:
         return True
 
-def goEast(x: int, progMap):
-    global player_y, player_x
-    for i in range(abs(player_x - x)):
-        progMap[player_y][player_x + i] = 7
-    player_x = x
+def canGoNorth(x: int, grid) -> bool:
+    if x < 0 or x >= len(grid):
+        print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
+        return False
+    if grid[x][player_y] == 0:
+        return False
+    else:
+        return True
 
-def goWest(x: int, progMap):
-    global player_y, player_x
-    for i in range(abs(player_x - x)):
-        progMap[player_y][player_x - i] = 7
-    player_x = x
+def canGoSouth(x: int, grid) -> bool:
+    if x < 0 or x >= len(grid):
+        print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
+        return False
+    if grid[x][player_y] == 0:
+        return False
+    else:
+        return True
 
-def goNorth(y: int, progMap):
+def goEast(y: int, progMap):
     global player_y, player_x
     for i in range(abs(player_y - y)):
-        progMap[player_y - i][player_x] = 7
+        progMap[player_x][player_y + i] = 7
     player_y = y
 
-def goSouth(y: int, progMap):
+def goWest(y: int, progMap):
     global player_y, player_x
     for i in range(abs(player_y - y)):
-        progMap[player_y + i][player_x] = 7
+        progMap[player_x][player_y - i] = 7
     player_y = y
+
+def goNorth(x: int, progMap):
+    global player_y, player_x
+    for i in range(abs(player_x - x)):
+        progMap[player_x - i][player_y] = 7
+    player_x = x
+
+def goSouth(x: int, progMap):
+    global player_y, player_x
+    for i in range(abs(player_x - x)):
+        progMap[player_x + i][player_y] = 7
+    player_x = x
 
 def getCurrentLocation() -> tuple:
     location: tuple = (player_x, player_y)
     return location
 
-def setLocation(x: int, y: int, grid, progMap)-> bool:
+def setLocation(x: int, y: int, grid, progMap, player_x, player_y)-> bool:
+    print(x, player_x, y, player_y)
     if precondition(x == player_x or y == player_y) == False:
         print(f"You can only move in a straight line horizontally or vertically!")
         return False
     # if x < 0 or y < 0:
     #     print("Please input a positive index.")
     elif x > player_x:
-        if canGoEast(x, grid):
-            goEast(x, progMap)
+        if canGoSouth(x, grid):
+            goSouth(x, progMap)
             return True
         else:
             return False
 
     elif x < player_x:
-        if canGoWest(x, grid):
-            goWest(x, progMap)
+        if canGoNorth(x, grid):
+            goNorth(x, progMap)
             return True
         else:
             return False
 
 
     elif y < player_y:
-        if canGoNorth(y, grid):
-            goNorth(y, progMap)
+        if canGoWest(y, grid):
+            goWest(y, progMap)
             return True
         else:
             return False
 
     elif y > player_y:
-        if canGoSouth(y, grid):
-            goSouth(y, progMap)
+        if canGoEast(y, grid):
+            goEast(y, progMap)
             return True
         else:
             return False
+
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
 def resizeImg(image, newWidth):
