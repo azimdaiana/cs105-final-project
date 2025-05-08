@@ -11,7 +11,7 @@ term = blessed.Terminal()
 
 #function selectMap starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
 def selectMap():
-    s = input("Welcome to Medieval Math Mayhem, a text-based math adventure game!\nPlease select your map (input one): map1, map2, map3, map4, map5, save. Or, input map6 to generate your own map\n")
+    s = input("Welcome to Medieval Math Mayhem, a text-based math adventure game!\nPlease select your map: map1, map2, map3, map4, map5, save. Or, input map6 to generate your own map\n")
     if s == 'map1':
         grid = load_map('map1.txt')
     if s == 'map2':
