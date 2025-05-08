@@ -96,24 +96,35 @@ player_x = 0
 player_y = 0
 
 def canGoEast(x: int, grid) -> bool:
+    if x < 0 or x >= len(grid[0]):
+        print(f"Moving in this direction is out of bound. Please try a different direction.")
+        return False
     if grid[player_y][x] == 0:
         return False
     else:
         return True
 
 def canGoWest(x: int, grid) -> bool:
+    if x < 0 or x >= len(grid[0]):
+        print(f"Moving in this direction is out of bound. Please try a different direction.")
+        return False
     if grid[player_y][x] == 0:
         return False
     else:
         return True
 
 def canGoNorth(y: int, grid) -> bool:
+    if y < 0 or y >= len(grid[1]):
+        print(f"Moving in this direction is out of bound. Please try a different direction.")
+        return False
     if grid[y][player_x] == 0:
         return False
     else:
         return True
 
 def canGoSouth(y: int, grid) -> bool:
+    if y < 0 or y >= len(grid[1]):
+        print(f"Moving in this direction is out of bound. Please try a different direction.")
     if grid[y][player_x] == 0:
         return False
     else:
@@ -210,7 +221,7 @@ def guard_found():
             print("Yay! You are free to continue!")
             return True
         else:
-            print("Off to the dungeon.")
+            print("Off to the dungeon. You have failed the game.")
             print(graphic("images.jpeg", 60))
             return False
 
