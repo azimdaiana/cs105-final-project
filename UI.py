@@ -114,9 +114,10 @@ if __name__ == "__main__":
     endTime = time.time()
     print(f"The time now is: {time.ctime(endTime)}")
     timePlayed = round(endTime - startTime, 2)
-    if timePlayed > 60:
-        timePlayed = timePlayed % 60
-        print(f"It has taken you {timePlayed} minutes to play the game")
+    mins = int(timePlayed // 60)
+    secs = int(timePlayed % 60)
+    if mins > 0:
+        print(f"It has taken you {mins} minutes {secs} seconds to play the game")
     else:
-        print(f"It has taken you {timePlayed} secs to play the game")
+        print(f"It has taken you {secs} seconds to play the game")
     print("Thanks for playing!\nRestart to play again.")
