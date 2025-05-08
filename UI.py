@@ -4,12 +4,34 @@ from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLo
 
 term = blessed.Terminal()
 
-#function selectMap starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
+currentMapNum = 1
+progressMade = False
 def selectMap():
-    s = input(
-        "Please select your map (input one): map1, map2, map3, map4, map5, save. If you want to generate your own map input random.\n"
-        f"Or, if you would like to return to your previous game, please type continue\n")
-    if "continue" in s:
+    """
+    starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
+    :return: grid, progMap, the user's current location coordinates
+    """
+    global currentMapNum, progressMade
+    print(
+        "Choose how you would like to play the game: \n"
+        "1. Progress from pre-built maps (map1 -> map5)\n"
+        "2. Generate a random map.\n"
+        "3. Load a saved game\n")
+    s = input("Your choice: ")
+    if s == "1":
+        progressMade = True
+        currentMapNum = 1
+        grid = load_map(f"map{currentMapNum}.txt")
+    elif s == "2":
+        try:
+            print("The value for rows and columns must be greater than 1!")
+            r = int(input('How many rows will your grid have? '))
+            c = int(input('How many columns will your grid have?'))
+            grid = randomMaze(r, c)
+        except ValueError:
+            print("Invalid input for grid size")
+            return selectMap()
+    elif s == "3":
         try:
             loc, grid, progMap = loadSavedGame()
             player_x, player_y = loc
@@ -21,98 +43,90 @@ def selectMap():
             print("No saved game found. Please choose a new map.")
             return selectMap()
     else:
-        if "map" and "1" in s:
-            grid = load_map('map1.txt')
-        elif "map" and "2" in s:
-            grid = load_map('map2.txt')
-        elif "map" and "3" in s:
-            grid = load_map('map3.txt')
-        elif "map" and "4" in s:
-            grid = load_map('map4.txt')
-        elif "map" and "5" in s:
-            grid = load_map('map5.txt')
-        elif s == 'random':
-            try:
-                print("The value for rows and columns must be greater than 1!")
-                r = int(input('How many rows will your grid have? '))
-                c = int(input('How many columns will your grid have?'))
-                grid = randomMaze(r,c)
-            except ValueError:
-                print("Invalid input for grid size")
-                return selectMap()
+        print("Invalid choice. Please enter 1, 2, or 3.")
+        return selectMap()
 
-        progMap = print_map(grid)
-        player_x, player_y = getCurrentLocation()
+    progMap = print_map(grid)
+    player_x, player_y = getCurrentLocation()
 
-        print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}')
-        print(
-            'You are currently trapped in a castle and must find your way out. To move, you must choose a direction (north, south, west, or east) and you will be moved 1 unit.\n'
-            'However, beware of the guards positioned throughout the castle. They might challenge you to a battle!\n\n'
-            f"Reminder, this is what your maze looks like:\n{progMap}\n\n"
-            "Find a path through the castle using the commands!\n"
-            f"You will start at the top left corner of the maze."
-        )
+    print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}')
+    print(
+        'You are currently trapped in a castle and must find your way out. To move, you must choose a direction (north, south, west, or east) to move 1 unit.\n'
+        'However, beware of the guards positioned throughout the castle. They might challenge you to a battle!\n\n'
+        f"Reminder, this is what your maze looks like:\n{progMap}\n\n"
+        "Find a path through the castle using the commands!\n"
+        f"You will start at the top left corner of the maze."
+    )
     return grid, progMap, player_x, player_y
 
 def UI_run():
-    global grid, player_y, player_x, progMap
+    global grid, player_y, player_x, progMap, currentMapNum, progressMade
     player_x, player_y = 0, 0
+    print(player_x, player_y)
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
         i = input("\nWhat would you like to do? (move/save): ").lower()
         if 'move' in i:
-            direction = input("Which direction would you like to go? (north/south/east/west)\n")
-            # distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
+            direction = input("Which direction would you like to go? (north/south/east/west): ")
             x, y = player_x, player_y
             if direction == "east":
                 distMoved = setLocation(x + 1, y, grid, progMap)
-                player_x, player_y = getCurrentLocation()
-                progMap[player_y][player_x] = 7
             elif direction == "west":
                 distMoved = setLocation(x - 1, y, grid, progMap)
-                player_x, player_y = getCurrentLocation()
-                progMap[player_y][player_x] = 7
             elif direction == "south":
                 distMoved = setLocation(x, y + 1, grid, progMap)
-                player_x, player_y = getCurrentLocation()
-                progMap[player_y][player_x] = 7
             elif direction == "north":
                 distMoved = setLocation(x, y - 1, grid, progMap)
-                player_x, player_y = getCurrentLocation()
             else:
                 print("\nInvalid direction. Please try again.")
                 continue
+
+            player_x, player_y = getCurrentLocation()
+            progMap[player_y][player_x] = 7
+
             if distMoved == False:
                 print(f"You cannot move there, your location is still {getCurrentLocation()}")
             elif grid[player_y][player_x] == 3:
                 if guard_found() == True:
-                    print(f"\nYour current location is {getCurrentLocation()} and current progress map is {progMap}.")
+                    print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
                 else:
                     win = True
             else:
-                print(f"\nYour current location is {getCurrentLocation()} and current progress map is {progMap}.")
+                print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
+
         elif "save" in i:
             savingGame(player_x, player_y, grid, progMap)
             win = True
+
         elif "print" in i:
             print(grid)
-        player_x, player_y = getCurrentLocation()
+
         if grid[player_y][player_x] == 2:
-            print(f"The actual maze was {grid}\n")
+            print(f"You found the exit!\nThe actual maze was {grid}\n")
             print('Congratulations! You have escaped the castle.\n')
-            open('lastGameSaved.json', 'w').close()
+            open('lastGameSaved.json', 'w').close() #clears the last saved game
             win = True
+
+    if progressMade and currentMapNum < 5:
+        currentMapNum += 1
+        print(f"You have leveled up to map {currentMapNum}. ")
+        grid = load_map(f"map{currentMapNum}.txt")
+        progMap = print_map(grid)
+        print(f"Your maze looks like this: {progMap}")
+        UI_run()
+    elif progressMade and currentMapNum == 5:
+        print("Congrats! You have completed all of the pre-built levels.")
 
 
 if __name__ == "__main__":
     print("Welcome to Medieval Math Mayhem, a text-based math adventure game!\n")
     startTime = time.time()
-    print(f"The time now is: {time.ctime(startTime)}")
+    print(f"Your start time is {time.ctime(startTime)}")
     grid, progMap, player_x, player_y = selectMap()
     UI_run()
     endTime = time.time()
-    print(f"The time now is: {time.ctime(endTime)}")
+    print(f"Your end time is {time.ctime(endTime)}")
     timePlayed = round(endTime - startTime, 2)
     mins = int(timePlayed // 60)
     secs = int(timePlayed % 60)
