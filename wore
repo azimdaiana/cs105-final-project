@@ -1,0 +1,40 @@
+/usr/bin/python3.8 /homes/dazimova/cs105-final-project/UI.py
+Welcome to Medieval Math Mayhem, a text-based math adventure game!
+Please select your map (input one): map1, map2, map3, map4, map5, save. Or, input random to generate your own map
+Or if you would like to return your previous game, please type continue
+map1
+Your selected map has the following dimensions: 3x3
+You are currently trapped in a castle and must find your way out. To move, you may choose a direction (north, south, west, or east) and then the number of units you want to move.
+However, beware of the guards positioned throughout the castle. They might challenge you to a battle!
+Get ready, the game is about to launch!Reminder, this is what your maze looks like:
+[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+Find a path through the castle using the commands!
+You will start at the top left corner of the maze.
+
+
+What would you like to do? (move/save: move
+Which direction would you like to go? (north/south/east/west)
+west
+How many units would you like to move? (please print a numerical value)
+1
+Moved 1 unit(s) east.
+Your current location is (1, 0)
+Your current progress map is [[7, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+What would you like to do? (move/save: move
+Which direction would you like to go? (north/south/east/west)
+south
+How many units would you like to move? (please print a numerical value)
+1
+Traceback (most recent call last):
+  File "/homes/dazimova/cs105-final-project/UI.py", line 78, in <module>
+    UI_run()
+  File "/homes/dazimova/cs105-final-project/UI.py", line 60, in UI_run
+    distMoved = setLocation(0, distance, grid, progMap)
+  File "/homes/dazimova/cs105-final-project/utilities.py", line 153, in setLocation
+    precondition(x == player_x or y == player_y)
+  File "/home/courses/python/logic.py", line 71, in precondition
+    raise PreconditionException
+logic.PreconditionException
+
+Process finished with exit code 1
