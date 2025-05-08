@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/homes/dazimova/cs105-final-project/UI.py", line 114, in <module>
+    UI_run()
+  File "/homes/dazimova/cs105-final-project/UI.py", line 67, in UI_run
+    distMoved = setLocation(x + 1, y, grid, progMap)
+  File "/homes/dazimova/cs105-final-project/utilities.py", line 157, in setLocation
+    if canGoEast(x, grid):
+  File "/homes/dazimova/cs105-final-project/utilities.py", line 99, in canGoEast
+    if grid[player_y][x] == 0:
+IndexError: list index out of range
