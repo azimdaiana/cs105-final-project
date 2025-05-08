@@ -1,7 +1,7 @@
 from typing import List
 from Logic import precondition
 from random import randint, choice
-from graphics import graphic
+from PIL import Image
 import json
 
 def load_map(fileName: str) -> List[List[int]]:
@@ -195,6 +195,50 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
             return True
         else:
             return False
+
+# code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
+def resizeImg(image, newWidth):
+    """
+    :param image: path file
+    :param newWidth: int value
+    :return: resized img to fit the terminal
+    """
+    width, height = image.size
+    ratio = height / width
+    newHeight = int(newWidth * ratio * 0.55) #height adjusted for terminal
+    return image.resize((newWidth, newHeight))
+def pixelToGrayscale(image):
+    """
+    :param image: img path
+    :return: converts the img into grayscale
+    """
+    return image.convert("L")  # "L" mode for grayscale
+def pixelToAscii(image):
+    """
+    :param image: img path
+    :return: map each pixel in the img to an ASCII char
+    """
+    ASCIICHAR = "@%#*+=-:. "
+    pixels = image.getdata()
+    asciiStr = ""
+    for pixel_value in pixels:
+        index = pixel_value * (len(ASCIICHAR) - 1) // 255
+        asciiStr += ASCIICHAR[index]
+    return asciiStr
+def graphic(image, newWidth):
+    try:
+        image = Image.open(image)
+    except:
+        print("unable to open image")
+        return
+
+    # Convert to grayscale and ASCII art
+    grayscaleImg= pixelToGrayscale(resizeImg(image, newWidth))
+    newImgPixels = pixelToAscii(grayscaleImg)
+
+    asciiImg = "\n".join(newImgPixels[i:i + newWidth] for i in range(0, len(newImgPixels), newWidth))
+
+    return asciiImg  # Print the ASCII art to the console
 
 def generate_problem() -> str:
     operations: list = ["+", "-", "*"]
