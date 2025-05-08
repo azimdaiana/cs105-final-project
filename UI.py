@@ -5,8 +5,9 @@ term = blessed.Terminal()
 
 #function selectMap starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
 def selectMap():
-    s = input("Welcome to Medieval Math Mayhem, a text-based math adventure game!\nPlease select your map (input one): map1, map2, map3, map4, map5, save. Or, input random to generate your own map\n")
-    if s == "save":
+    s = input("Welcome to Medieval Math Mayhem, a text-based math adventure game!\nPlease select your map (input one): map1, map2, map3, map4, map5, save. Or, input random to generate your own map\n"
+              f"Or if you would like to return your previous game, please type continue\n")
+    if s == "continue":
         savedGrid = loadSavedGame()
         if savedGrid:
             return savedGrid
@@ -41,61 +42,37 @@ print('You are currently trapped in a castle and must find your way out. To move
       "You will start at the top left corner of the maze.\n"
       )
 
-p_x, p_y = getCurrentLocation()
+p_y, p_x = getCurrentLocation()
 
 def UI_run():
     global player_x, player_y, grid
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
-        i = input("\nWhat would you like to do? (move/save/print): ").lower()
+        i = input("\nWhat would you like to do? (move/save): ").lower()
         if 'move' in i:
             direction = input("Which direction would you like to go? (north/south/east/west)\n")
             distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
 
-            if direction == "west":
-                distMoved = setLocation(-distance, 0, grid, progMap)
-            elif direction == "east":
+            if direction == "west" or direction == "east":
                 distMoved = setLocation(distance, 0, grid, progMap)
-            elif direction == "south":
+            elif direction == "south" or direction == "north":
                 distMoved = setLocation(0, distance, grid, progMap)
-            elif direction == "north":
-                distMoved = setLocation(0, -distance, grid, progMap)
             else:
                 print("Invalid direction. Please try again.")
                 continue
             if distMoved == False:
-                print(f"You have not moved, your location is still {getCurrentLocation()}")
+                print(f"You cannot move there, your location is still {getCurrentLocation()}")
             else:
                 print(f"Your current location is {getCurrentLocation()}\n"
                       f"Your current progress map is {progMap}")
         elif "save" in i:
             savingGame(grid)
-        elif "print" in i:
-            print(print_map(grid))
-        p_x, p_y = getCurrentLocation()
-        if grid[p_x][p_y] == 2:
+
+        p_y, p_x = getCurrentLocation()
+        if grid[p_y][p_x] == 2:
             print('you have defeated this level!!')
             win = True
             print(f"Your current location is {getCurrentLocation()}")
 
 UI_run()
-
-
-# def UI_start():
-#     with term.location(0, 10):
-#         print('Welcome to ZORK, a text-based adventure game.\nPlease select your map: map1, map2, map3, map4, map5')
-#         s = input()
-#         if s == 'map1':
-#             uni_map = load_map('map1.txt')
-#
-#
-# print(UI_start())
-
-# #sample code
-# progress = input("Would you like to save your progress?(yes/no)")
-# if progress == "yes":
-#     print(savingGame())
-#
-# else:
-#     pass #start a new game
