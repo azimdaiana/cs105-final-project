@@ -41,7 +41,7 @@ def selectMap():
                 return selectMap()
 
         progMap = print_map(grid)
-        player_x, player_y = 0, 0
+        player_x, player_y = getCurrentLocation()
 
         print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}')
         print(
@@ -55,6 +55,7 @@ def selectMap():
 
 def UI_run():
     global grid, player_y, player_x, progMap
+    player_x, player_y = 0, 0
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -110,6 +111,8 @@ if __name__ == "__main__":
     again = input("Would you like to play again? (yes/no): ").strip().lower()
     if again == "yes":
         grid, progMap, player_x, player_y = selectMap()
+        globals()["player_y"] = 0
+        globals()["player_x"] = 0
         print(grid, progMap, player_x, player_y)
         UI_run()
     else:

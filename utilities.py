@@ -97,7 +97,7 @@ player_y = 0
 
 def canGoEast(x: int, grid) -> bool:
     if x < 0 or x >= len(grid[0]):
-        print(f"Moving in this direction is out of bound. Please try a different direction.")
+        print(f"Moving in this direction would be out of bound. Please try a different direction.")
         return False
     if grid[player_y][x] == 0:
         return False
@@ -106,7 +106,7 @@ def canGoEast(x: int, grid) -> bool:
 
 def canGoWest(x: int, grid) -> bool:
     if x < 0 or x >= len(grid[0]):
-        print(f"Moving in this direction is out of bound. Please try a different direction.")
+        print(f"Moving in this direction would be out of bound. Please try a different direction.")
         return False
     if grid[player_y][x] == 0:
         return False
@@ -114,8 +114,8 @@ def canGoWest(x: int, grid) -> bool:
         return True
 
 def canGoNorth(y: int, grid) -> bool:
-    if y < 0 or y >= len(grid[1]):
-        print(f"Moving in this direction is out of bound. Please try a different direction.")
+    if y < 0 or y >= len(grid):
+        print(f"Moving in this direction would be out of bound. Please try a different direction.")
         return False
     if grid[y][player_x] == 0:
         return False
@@ -123,8 +123,8 @@ def canGoNorth(y: int, grid) -> bool:
         return True
 
 def canGoSouth(y: int, grid) -> bool:
-    if y < 0 or y >= len(grid[1]):
-        print(f"Moving in this direction is out of bound. Please try a different direction.")
+    if y < 0 or y >= len(grid):
+        print(f"Moving in this direction would be out of bound. Please try a different direction.")
     if grid[y][player_x] == 0:
         return False
     else:
