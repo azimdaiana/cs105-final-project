@@ -161,6 +161,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
         if canGoEast(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units east.")
             goEast(abs(player_x - x), progMap)
+            guard_found(grid, player_y, player_x)
             return True
         else:
             return False
@@ -169,6 +170,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
         if canGoWest(x, grid):
             print("Moved " + str(abs(player_x - x)) + " units west.")
             goWest(abs(player_x - x), progMap)
+            guard_found(grid, player_y, player_x)
             return True
         else:
             return False
@@ -178,6 +180,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
         if canGoNorth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units north.")
             goNorth(abs(player_y - y), progMap)
+            guard_found(grid, player_y, player_x)
             return True
         else:
             return False
@@ -186,6 +189,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
         if canGoSouth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " units south.")
             goSouth(abs(player_y - y), progMap)
+            guard_found(grid, player_y, player_x)
             return True
         else:
             return False
@@ -217,12 +221,18 @@ def guard_found(grid, player_y, player_x):
             print("Off to the dungeon.")
             print(graphic("images.jpeg", 100))
 
-def savingGame():
+def savingGame(player_x, player_y, grid, progMap):
     prevPlay = {
-            "lastLoc": getCurrentLocation(),
+            "lastLoc": [player_x, player_y],
             "grid": grid,
-            # "progMap": uni_map,
+            "progMap": [progMap],
         }
 
     with open('lastGameSaved.json', 'w') as lastGame:
         json.dump(prevPlay, lastGame)
+    print("Game has been saved successfully. Come back soon to continue where you left off!")
+
+def loadSavedGame():
+    with open("lastGameSaved.json", "r") as lastGame:
+        prevPlay = json.load(lastGame)
+    return prevPlay["lastLoc"], prevPlay["grid"], prevPlay["progMap"]
