@@ -52,7 +52,7 @@ def selectMap():
     progMap = print_map(grid)
     player_x, player_y = getCurrentLocation()
 
-    print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}')
+    print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}.')
     print(
         'You are currently trapped in a castle and must find your way out. To move, you must choose a direction (north, south, west, or east) to move 1 unit.\n'
         'However, beware of the guards positioned throughout the castle. They might challenge you to a battle!\n\n'
@@ -64,9 +64,7 @@ def selectMap():
 
 def UI_run(start_x, start_y):
     global grid, player_y, player_x, progMap, currentMapNum, progressMade
-    print(player_x, player_y)
     player_x, player_y = start_x, start_y
-    print(player_x, player_y)
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -74,9 +72,6 @@ def UI_run(start_x, start_y):
         if 'move' in i:
             direction = input("Which direction would you like to go? (north/south/east/west): ")
             x, y = player_x, player_y
-            print(player_x, player_y)
-            print(x, y)
-            print(getCurrentLocation())
             if direction == "east":
                 distMoved = setLocation(x, y + 1, grid, progMap)
             elif direction == "west":
@@ -90,23 +85,24 @@ def UI_run(start_x, start_y):
                 continue
 
             player_x, player_y = getCurrentLocation()
-            progMap[player_x][player_y] = 7
 
             if distMoved == False:
                 print(f"\nYou cannot move there, your location is still {getCurrentLocation()}.")
             elif grid[player_x][player_y] == 3:
                 if guard_found():
                     print(f"\nMoved a unit {direction}")
+                    progMap[player_x][player_y] = 7
                     print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
                 else:
                     win = True
             else:
                 print(f"\nMoved a unit {direction}.")
+                progMap[player_x][player_y] = 7
                 print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
 
         elif "save" in i:
             savingGame(player_x, player_y, grid, progMap)
-            win = True
+            return win == True
 
         elif "print" in i:
             print(grid)
@@ -122,9 +118,7 @@ def UI_run(start_x, start_y):
         print(f"You have leveled up to map {currentMapNum}. ")
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
-        player_x, player_y = 0, 0
-        print(player_x, player_y)
-        print(getCurrentLocation())
+        player_x, player_y = getCurrentLocation()
         print(f"Your maze looks like this: {progMap}")
         UI_run(0,0)
     elif progressMade and currentMapNum == 5:
