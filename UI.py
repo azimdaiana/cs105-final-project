@@ -104,7 +104,7 @@ def UI_run():
 
         if grid[player_y][player_x] == 2:
             print(f"You found the exit!\nThe actual maze was {grid}\n")
-            print('Congratulations! You have escaped the castle.\n')
+            print('Congratulations! You have escaped this castle level.\n')
             open('lastGameSaved.json', 'w').close() #clears the last saved game
             win = True
 
@@ -113,6 +113,8 @@ def UI_run():
         print(f"You have leveled up to map {currentMapNum}. ")
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
+        setLocation(0, 0, grid, progMap)
+        player_x, player_y = 0, 0
         print(f"Your maze looks like this: {progMap}")
         UI_run()
     elif progressMade and currentMapNum == 5:
