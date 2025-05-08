@@ -1,4 +1,5 @@
 import blessed
+import time
 from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame
 
 term = blessed.Terminal()
@@ -106,14 +107,16 @@ def UI_run():
 
 if __name__ == "__main__":
     print("Welcome to Medieval Math Mayhem, a text-based math adventure game!\n")
+    startTime = time.time()
+    print(f"The time now is: {time.ctime(startTime)}")
     grid, progMap, player_x, player_y = selectMap()
     UI_run()
-    again = input("Would you like to play again? (yes/no): ").strip().lower()
-    if again == "yes":
-        grid, progMap, player_x, player_y = selectMap()
-        globals()["player_y"] = 0
-        globals()["player_x"] = 0
-        print(grid, progMap, player_x, player_y)
-        UI_run()
+    endTime = time.time()
+    print(f"The time now is: {time.ctime(endTime)}")
+    timePlayed = round(endTime - startTime, 2)
+    if timePlayed > 60:
+        timePlayed = timePlayed % 60
+        print(f"It has taken you {timePlayed} minutes to play the game")
     else:
-        print("Thanks for playing!")
+        print(f"It has taken you {timePlayed} secs to play the game")
+    print("Thanks for playing!\nRestart to play again.")

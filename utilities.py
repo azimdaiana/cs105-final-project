@@ -35,13 +35,10 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
     """
     grid: List[List[int]] = [] #empty map
     for i in range(rows): #create an empty map of only 0s (walls)
-        row = []
-        for j in range(cols):
-            row.append(0)
-        grid.append(row)
+        grid.append([0] * cols)
 
     #starting points
-    currentCol = randint(0, cols-1)
+    currentCol = 0
     currentRow = 0
     grid[currentRow][currentCol] = 1 #the start
     path = [(currentRow, currentCol)] #initiating a path
@@ -55,8 +52,9 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
             currentCol -= 1
         elif direction == "right" and currentCol < cols - 1:
             currentCol += 1
-        grid[currentRow][currentCol] = 1 #updates the 0 at the location to a 1
-        path.append([currentRow, currentCol]) #saves the path to the goal
+        if grid[currentRow][currentCol] == 0:
+            grid[currentRow][currentCol] = 1 #updates the 0 at the location to a 1
+            path.append([currentRow, currentCol]) #saves the path to the goal
 
     grid[currentRow][currentCol] = 2 #indicate the end goal
 
@@ -125,6 +123,7 @@ def canGoNorth(y: int, grid) -> bool:
 def canGoSouth(y: int, grid) -> bool:
     if y < 0 or y >= len(grid):
         print(f"Moving in this direction would be out of bound. Please try a different direction.")
+        return False
     if grid[y][player_x] == 0:
         return False
     else:
