@@ -75,7 +75,7 @@ def UI_run():
 
         player_y, player_x = getCurrentLocation()
         if grid[player_y][player_x] == 2:
-            print('Congratulations! You have escaped the castle in this level!')
+            print('Congratulations! You have escaped the castle in this level.')
             win = True
 
 if __name__ == "__main__":
