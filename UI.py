@@ -42,7 +42,7 @@ print('You are currently trapped in a castle and must find your way out. To move
       "You will start at the top left corner of the maze.\n"
       )
 
-p_y, p_x = getCurrentLocation()
+player_y, player_x = getCurrentLocation()
 
 def UI_run():
     global player_x, player_y, grid
@@ -53,11 +53,15 @@ def UI_run():
         if 'move' in i:
             direction = input("Which direction would you like to go? (north/south/east/west)\n")
             distance = int(input("How many units would you like to move? (please print a numerical value)\n"))
-
-            if direction == "west" or direction == "east":
-                distMoved = setLocation(distance, 0, grid, progMap)
-            elif direction == "south" or direction == "north":
-                distMoved = setLocation(0, distance, grid, progMap)
+            x, y = getCurrentLocation()
+            if direction == "east":
+                distMoved = setLocation(x + distance, y, grid, progMap)
+            elif direction == "west":
+                distMoved = setLocation(x - distance, y, grid, progMap)
+            elif direction == "south":
+                distMoved = setLocation(x, y + distance, grid, progMap)
+            elif direction == "north":
+                distMoved = setLocation(x, y - distance, grid, progMap)
             else:
                 print("Invalid direction. Please try again.")
                 continue
@@ -67,12 +71,12 @@ def UI_run():
                 print(f"Your current location is {getCurrentLocation()}\n"
                       f"Your current progress map is {progMap}")
         elif "save" in i:
-            savingGame(grid)
+            savingGame(player_x, player_y, grid, progMap)
 
-        p_y, p_x = getCurrentLocation()
-        if grid[p_y][p_x] == 2:
-            print('you have defeated this level!!')
+        player_y, player_x = getCurrentLocation()
+        if grid[player_y][player_x] == 2:
+            print('Congratulations! You have escaped the castle in this level!')
             win = True
-            print(f"Your current location is {getCurrentLocation()}")
 
-UI_run()
+if __name__ == "__main__":
+    UI_run()

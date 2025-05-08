@@ -12,8 +12,6 @@ def load_map(fileName: str) -> List[List[int]]:
     """
 
     file = open(fileName, "r")
-    if type == "2D":
-        file.readlines()
     firstLine = file.readline() #reads the dimensions
     # print(firstLine)
     rows, cols = map(int, firstLine.split("x")) #splits the first line using the x to parse the dimensions and converts to ints
@@ -150,7 +148,9 @@ def getCurrentLocation() -> tuple:
     return location
 
 def setLocation(x: int, y: int, grid, progMap)-> bool:
-    precondition(x == player_x or y == player_y)
+    if precondition(x == player_x or y == player_y) == False:
+        print("You can only move in a straight line horizontally or vertically!")
+        return False
     if x < 0 or y < 0:
         print("Please input a positive index.")
     elif x > player_x:
@@ -217,7 +217,7 @@ def savingGame(player_x, player_y, grid, progMap):
     prevPlay = {
             "lastLoc": [player_y, player_x],
             "grid": grid,
-            "progMap": [progMap],
+            "progMap": progMap,
         }
 
     with open('lastGameSaved.json', 'w') as lastGame:
