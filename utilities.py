@@ -151,12 +151,12 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
     if precondition(x == player_x or y == player_y) == False:
         print("You can only move in a straight line horizontally or vertically!")
         return False
-    if x < 0 or y < 0:
-        print("Please input a positive index.")
+    # if x < 0 or y < 0:
+    #     print("Please input a positive index.")
     elif x > player_x:
         if canGoEast(x, grid):
             print("Moved " + str(abs(player_x - x)) + " unit(s) east.")
-            goEast(abs(player_x - x), progMap)
+            goEast(x, progMap)
             return True
         else:
             return False
@@ -164,7 +164,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
     elif x < player_x:
         if canGoWest(x, grid):
             print("Moved " + str(abs(player_x - x)) + " unit(s) west.")
-            goWest(abs(player_x - x), progMap)
+            goWest(x, progMap)
             return True
         else:
             return False
@@ -173,7 +173,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
     elif y < player_y:
         if canGoNorth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " unit(s) north.")
-            goNorth(abs(player_y - y), progMap)
+            goNorth(y, progMap)
             return True
         else:
             return False
@@ -181,11 +181,10 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
     elif y > player_y:
         if canGoSouth(y, grid):
             print("Moved " + str(abs(player_y - y)) + " unit(s) south.")
-            goSouth(abs(player_y - y), progMap)
+            goSouth(y, progMap)
             return True
         else:
             return False
-    progMap[player_y][player_x] = 7
 
 def generate_problem() -> str:
     operations: list = ["+", "-", "*"]
@@ -200,18 +199,20 @@ def generate_problem() -> str:
         solution = first_num * second_num
     return str(first_num) + " " + operation + " " + str(second_num), int(solution)
 
-def guard_found(grid, player_y, player_x):
-    if grid[player_y][player_x] == 3:
+def guard_found():
+    # if grid[player_y][player_x] == 3:
         problem, solution = generate_problem()
         print(graphic("guard.jpg", 25))
         print("You have encountered a guard. If you can correctly answer this problem for him, you may pass \n"
-              "through. If not, you will be sent to the dungeon... \n\n\nHere is your problem: " + problem)
+              "through. If not, you will be sent to the dungeon... \nHere is your problem: " + problem)
         answer = input("Answer: ")
         if int(answer) == solution:
             print("Yay! You are free to continue!")
+            return True
         else:
             print("Off to the dungeon.")
-            print(graphic("images.jpeg", 100))
+            print(graphic("images.jpeg", 60))
+            return False
 
 def savingGame(player_x, player_y, grid, progMap):
     prevPlay = {
