@@ -4,8 +4,11 @@ from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLo
 
 term = blessed.Terminal()
 
+player_x = 0
+player_y = 0
 currentMapNum = 1
 progressMade = False
+
 def selectMap():
     """
     starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
@@ -59,9 +62,9 @@ def selectMap():
     )
     return grid, progMap, player_x, player_y
 
-def UI_run():
+def UI_run(start_x, start_y):
     global grid, player_y, player_x, progMap, currentMapNum, progressMade
-    player_x, player_y = 0, 0
+    player_x, player_y = start_x, start_y
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -70,13 +73,13 @@ def UI_run():
             direction = input("Which direction would you like to go? (north/south/east/west): ")
             x, y = player_x, player_y
             if direction == "east":
-                distMoved = setLocation(x, y + 1, grid, progMap, player_x, player_y)
+                distMoved = setLocation(x, y + 1, grid, progMap)
             elif direction == "west":
-                distMoved = setLocation(x, y - 1, grid, progMap, player_x, player_y)
+                distMoved = setLocation(x, y - 1, grid, progMap)
             elif direction == "south":
-                distMoved = setLocation(x + 1, y, grid, progMap, player_x, player_y)
+                distMoved = setLocation(x + 1, y, grid, progMap)
             elif direction == "north":
-                distMoved = setLocation(x - 1, y, grid, progMap, player_x, player_y)
+                distMoved = setLocation(x - 1, y, grid, progMap)
             else:
                 print("\nInvalid direction. Please try again.")
                 continue
@@ -85,7 +88,7 @@ def UI_run():
             progMap[player_x][player_y] = 7
 
             if distMoved == False:
-                print(f"\nYou cannot move there, your location is still {getCurrentLocation()}")
+                print(f"\nYou cannot move there, your location is still {getCurrentLocation()}.")
             elif grid[player_x][player_y] == 3:
                 if guard_found() == True:
                     print(f"\nMoved a unit {direction}")
@@ -115,9 +118,8 @@ def UI_run():
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
         player_x, player_y = 0, 0
-        setLocation(0, 0, grid, progMap, player_x, player_y)
         print(f"Your maze looks like this: {progMap}")
-        UI_run()
+        UI_run(0,0)
     elif progressMade and currentMapNum == 5:
         print("Congrats! You have completed all of the pre-built levels.")
 
@@ -127,7 +129,7 @@ if __name__ == "__main__":
     startTime = time.time()
     print(f"Your start time is {time.ctime(startTime)}")
     grid, progMap, player_x, player_y = selectMap()
-    UI_run()
+    UI_run(player_x, player_y)
     endTime = time.time()
     print(f"Your end time is {time.ctime(endTime)}")
     timePlayed = round(endTime - startTime, 2)
