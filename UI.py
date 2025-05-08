@@ -14,7 +14,7 @@ def selectMap():
     global currentMapNum, progressMade
     print(
         "Choose how you would like to play the game: \n"
-        "1. Progress from pre-built maps (map1 -> map5)\n"
+        "1. Progress through pre-built maps (map1 -> map5)\n"
         "2. Generate a random map.\n"
         "3. Load a saved game\n")
     s = input("Your choice: ")
@@ -29,7 +29,7 @@ def selectMap():
             c = int(input('How many columns will your grid have?'))
             grid = randomMaze(r, c)
         except ValueError:
-            print("Invalid input for grid size")
+            print("Invalid input for grid size\n")
             return selectMap()
     elif s == "3":
         try:
@@ -40,7 +40,7 @@ def selectMap():
                   f"Current location: ({player_y}, {player_x})\n")
             return grid, progMap, player_x, player_y
         except (FileNotFoundError, ValueError):
-            print("No saved game found. Please choose a new map.")
+            print("No saved game found. Please choose a new map.\n")
             return selectMap()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
@@ -62,7 +62,6 @@ def selectMap():
 def UI_run():
     global grid, player_y, player_x, progMap, currentMapNum, progressMade
     player_x, player_y = 0, 0
-    print(player_x, player_y)
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -89,10 +88,12 @@ def UI_run():
                 print(f"You cannot move there, your location is still {getCurrentLocation()}")
             elif grid[player_y][player_x] == 3:
                 if guard_found() == True:
+                    print(f"\nMoved a unit {direction}")
                     print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
                 else:
                     win = True
             else:
+                print(f"\nMoved a unit {direction}.")
                 print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
 
         elif "save" in i:
@@ -113,9 +114,9 @@ def UI_run():
         print(f"You have leveled up to map {currentMapNum}. ")
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
-        setLocation(0, 0, grid, progMap)
         player_x, player_y = 0, 0
         print(f"Your maze looks like this: {progMap}")
+        print(player_x, player_y)
         UI_run()
     elif progressMade and currentMapNum == 5:
         print("Congrats! You have completed all of the pre-built levels.")

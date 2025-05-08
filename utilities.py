@@ -165,7 +165,6 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
     #     print("Please input a positive index.")
     elif x > player_x:
         if canGoEast(x, grid):
-            print("\nMoved a unit east.")
             goEast(x, progMap)
             return True
         else:
@@ -173,7 +172,6 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
 
     elif x < player_x:
         if canGoWest(x, grid):
-            print("\nMoved a unit west.")
             goWest(x, progMap)
             return True
         else:
@@ -182,7 +180,6 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
 
     elif y < player_y:
         if canGoNorth(y, grid):
-            print("\nMoved a unit north.")
             goNorth(y, progMap)
             return True
         else:
@@ -190,7 +187,6 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
 
     elif y > player_y:
         if canGoSouth(y, grid):
-            print("\nMoved a unit south.")
             goSouth(y, progMap)
             return True
         else:
