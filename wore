@@ -38,3 +38,16 @@ Traceback (most recent call last):
 logic.PreconditionException
 
 Process finished with exit code 1
+
+x, y = getCurrentLocation()
+if direction == "east":
+    distMoved = setLocation(x + distance, y, grid, progMap)
+elif direction == "west":
+    distMoved = setLocation(x - distance, y, grid, progMap)
+elif direction == "south":
+    distMoved = setLocation(x, y + distance, grid, progMap)
+elif direction == "north":
+    distMoved = setLocation(x, y - distance, grid, progMap)
+else:
+    print("Invalid direction. Please try again.")
+    continue
