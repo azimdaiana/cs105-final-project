@@ -2,7 +2,7 @@ from typing import List
 from Logic import precondition
 from random import randint, choice
 from graphics import graphic
-
+import json
 
 def load_map(fileName: str) -> List[List[int]]:
     """
@@ -82,10 +82,6 @@ def randomMaze(rows:int, cols:int) -> List[List[int]]:
     return grid
 
 def print_map(map):
-    """
-    :param map:
-    :return:
-    """
     player_map = []
 
     for i in map:
@@ -107,13 +103,11 @@ def canGoEast(x: int, grid) -> bool:
     else:
         return True
 
-
 def canGoWest(x: int, grid) -> bool:
     if grid[player_y][x] == 0:
         return False
     else:
         return True
-
 
 def canGoNorth(y: int, grid) -> bool:
     if grid[y][player_x] == 0:
@@ -121,13 +115,11 @@ def canGoNorth(y: int, grid) -> bool:
     else:
         return True
 
-
 def canGoSouth(y: int, grid) -> bool:
     if grid[y][player_x] == 0:
         return False
     else:
         return True
-
 
 def goEast(x: int, progMap):
     global player_y, player_x
@@ -136,14 +128,12 @@ def goEast(x: int, progMap):
     player_x = x
     return player_x
 
-
 def goWest(x: int, progMap):
     global player_y, player_x
     for i in range(abs(player_x - x)):
         progMap[player_y][player_x - i] = 7
     player_x = x
     return player_x
-
 
 def goNorth(y: int, progMap):
     global player_y, player_x
@@ -152,7 +142,6 @@ def goNorth(y: int, progMap):
     player_y = y
     return player_y
 
-
 def goSouth(y: int, progMap):
     global player_y, player_x
     for i in range(abs(player_y - y)):
@@ -160,11 +149,9 @@ def goSouth(y: int, progMap):
     player_y = y
     return player_y
 
-
 def getCurrentLocation() -> tuple:
     location: tuple = (player_x, player_y)
     return location
-
 
 def setLocation(x: int, y: int, grid, progMap)-> bool:
     precondition(x == player_x or y == player_y)
@@ -230,5 +217,12 @@ def guard_found(grid, player_y, player_x):
             print("Off to the dungeon.")
             print(graphic("images.jpeg", 100))
 
+def savingGame():
+    prevPlay = {
+            "lastLoc": getCurrentLocation(),
+            "grid": grid,
+            # "progMap": uni_map,
+        }
 
-# guard_found(load_map("map2.txt"), 1, 3)
+    with open('lastGameSaved.json', 'w') as lastGame:
+        json.dump(prevPlay, lastGame)
