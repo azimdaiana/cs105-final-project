@@ -161,6 +161,11 @@ def getCurrentLocation() -> tuple:
     global player_x, player_y
     return (player_x, player_y)
 
+def resetCurrentLocation():
+    global player_x, player_y
+    player_x, player_y = 0,0
+    return(player_x, player_y)
+
 def setLocation(x: int, y: int, grid, progMap)-> bool:
     global player_x, player_y
     if precondition(x == player_x or y == player_y) == False:

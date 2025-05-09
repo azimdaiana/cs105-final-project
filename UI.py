@@ -1,6 +1,6 @@
 import blessed
 import time
-from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame, goalReached
+from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame, goalReached, resetCurrentLocation
 
 term = blessed.Terminal()
 
@@ -93,6 +93,7 @@ def UI_run():
                     print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
                 else:
                     win = True
+                    progressMade = False
             elif grid[player_x][player_y] == 2:
                 goalReached(grid)
                 win = True
@@ -105,9 +106,8 @@ def UI_run():
             savingGame(player_x, player_y, grid, progMap)
             return
 
-        elif "print" in i:
+        elif "print" in i: #cheat key
             print(grid)
-
 
     if progressMade and currentMapNum < 5:
         currentMapNum += 1
@@ -115,6 +115,7 @@ def UI_run():
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
         player_x, player_y = 0, 0
+        resetCurrentLocation()
         print(player_x, player_y, getCurrentLocation())
         print(f"Your maze looks like this: {progMap}")
         UI_run()
