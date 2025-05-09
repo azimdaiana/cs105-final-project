@@ -4,7 +4,6 @@ from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLo
 
 term = blessed.Terminal()
 
-
 currentMapNum = 1
 progressMade = False
 
@@ -116,7 +115,6 @@ def UI_run():
         progMap = print_map(grid)
         player_x, player_y = 0, 0
         resetCurrentLocation()
-        print(player_x, player_y, getCurrentLocation())
         print(f"Your maze looks like this: {progMap}")
         UI_run()
     elif progressMade and currentMapNum == 5:

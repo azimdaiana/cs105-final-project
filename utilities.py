@@ -197,9 +197,10 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
             return False
 
 def goalReached(grid):
-    print(f"You found the exit!\nThe actual maze was {grid}\n")
-    print('Congratulations! You have escaped this castle level.\n')
-    open('lastGameSaved.json', 'w').close()  # clears the last saved game
+    if grid[player_x][player_y] == 2:
+        print(f"You found the exit!\nThe actual maze was {grid}\n")
+        print('You have escaped this castle level.\n')
+        open('lastGameSaved.json', 'w').close()  # clears the last saved game
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
 def resizeImg(image, newWidth):
