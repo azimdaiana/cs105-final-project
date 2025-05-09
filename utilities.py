@@ -154,6 +154,7 @@ def goSouth(x: int, progMap):
     player_x = x
 
 def getCurrentLocation() -> tuple:
+    global player_x, player_y
     return (player_x, player_y)
 
 def setLocation(x: int, y: int, grid, progMap)-> bool:

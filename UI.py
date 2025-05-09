@@ -60,9 +60,8 @@ def selectMap():
     )
     return grid, progMap, player_x, player_y
 
-def UI_run(start_x, start_y):
-    global grid, player_y, player_x, progMap, currentMapNum, progressMade
-    player_x, player_y = start_x, start_y
+def UI_run(player_x, player_y):
+    global grid, progMap, currentMapNum, progressMade
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -116,9 +115,10 @@ def UI_run(start_x, start_y):
         print(f"You have leveled up to map {currentMapNum}. ")
         grid = load_map(f"map{currentMapNum}.txt")
         progMap = print_map(grid)
-        player_x, player_y = getCurrentLocation()
+        player_x, player_y = 0, 0
+        print(player_x, player_y, getCurrentLocation())
         print(f"Your maze looks like this: {progMap}")
-        UI_run(0,0)
+        UI_run(player_x, player_y)
     elif progressMade and currentMapNum == 5:
         print("Congrats! You have completed all of the pre-built levels.")
 
