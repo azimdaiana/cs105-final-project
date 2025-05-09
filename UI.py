@@ -1,8 +1,9 @@
 import blessed
 import time
-from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame
+from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame, goalReached
 
 term = blessed.Terminal()
+
 
 currentMapNum = 1
 progressMade = False
@@ -60,8 +61,8 @@ def selectMap():
     )
     return grid, progMap, player_x, player_y
 
-def UI_run(player_x, player_y):
-    global grid, progMap, currentMapNum, progressMade
+def UI_run():
+    global grid, progMap, currentMapNum, progressMade, player_y, player_x
     win = False
     #continuous input dependent on if the player wins or not
     while win == False:
@@ -92,6 +93,9 @@ def UI_run(player_x, player_y):
                     print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
                 else:
                     win = True
+            elif grid[player_x][player_y] == 2:
+                goalReached(grid)
+                win = True
             else:
                 print(f"\nMoved a unit {direction}.")
                 progMap[player_x][player_y] = 7
@@ -104,11 +108,6 @@ def UI_run(player_x, player_y):
         elif "print" in i:
             print(grid)
 
-        if grid[player_x][player_y] == 2:
-            print(f"You found the exit!\nThe actual maze was {grid}\n")
-            print('Congratulations! You have escaped this castle level.\n')
-            open('lastGameSaved.json', 'w').close() #clears the last saved game
-            win = True
 
     if progressMade and currentMapNum < 5:
         currentMapNum += 1
@@ -118,7 +117,7 @@ def UI_run(player_x, player_y):
         player_x, player_y = 0, 0
         print(player_x, player_y, getCurrentLocation())
         print(f"Your maze looks like this: {progMap}")
-        UI_run(player_x, player_y)
+        UI_run()
     elif progressMade and currentMapNum == 5:
         print("Congrats! You have completed all of the pre-built levels.")
 
@@ -128,7 +127,7 @@ if __name__ == "__main__":
     startTime = time.time()
     print(f"Your start time is {time.ctime(startTime)}")
     grid, progMap, player_x, player_y = selectMap()
-    UI_run(player_x, player_y)
+    UI_run()
     endTime = time.time()
     print(f"Your end time is {time.ctime(endTime)}")
     timePlayed = round(endTime - startTime, 2)

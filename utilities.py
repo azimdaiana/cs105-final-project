@@ -90,10 +90,8 @@ def print_map(map):
        player_map.append(f)
     return player_map
 
-player_x = 0
-player_y = 0
-
 def canGoEast(y: int, grid) -> bool:
+    global player_x, player_y
     if y < 0 or y >= len(grid[0]):
         print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
@@ -103,6 +101,7 @@ def canGoEast(y: int, grid) -> bool:
         return True
 
 def canGoWest(y: int, grid) -> bool:
+    global player_x, player_y
     if y < 0 or y >= len(grid[0]):
         print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
@@ -112,6 +111,7 @@ def canGoWest(y: int, grid) -> bool:
         return True
 
 def canGoNorth(x: int, grid) -> bool:
+    global player_x, player_y
     if x < 0 or x >= len(grid):
         print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
@@ -121,6 +121,7 @@ def canGoNorth(x: int, grid) -> bool:
         return True
 
 def canGoSouth(x: int, grid) -> bool:
+    global player_x, player_y
     if x < 0 or x >= len(grid):
         print(f"\nMoving in this direction would be out of bound. Please try a different direction.")
         return False
@@ -152,6 +153,9 @@ def goSouth(x: int, progMap):
     for i in range(abs(player_x - x)):
         progMap[player_x + i][player_y] = 7
     player_x = x
+
+player_x = 0
+player_y = 0
 
 def getCurrentLocation() -> tuple:
     global player_x, player_y
@@ -187,6 +191,10 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
         else:
             return False
 
+def goalReached(grid):
+    print(f"You found the exit!\nThe actual maze was {grid}\n")
+    print('Congratulations! You have escaped this castle level.\n')
+    open('lastGameSaved.json', 'w').close()  # clears the last saved game
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
 def resizeImg(image, newWidth):
