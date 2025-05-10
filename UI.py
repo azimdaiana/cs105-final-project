@@ -38,7 +38,7 @@ def selectMap():
             loc, grid, progMap = loadSavedGame()
             player_x, player_y = loc
             print("Your last game has been uploaded!\n"
-                  f"This is your maze:\n{progMap}\n"
+                  f"This is your maze:\n{draw_map(progMap, player_x, player_y)}\n"
                   f"Current location: ({player_y}, {player_x})\n")
             return grid, progMap, player_x, player_y
         except (FileNotFoundError, ValueError):
@@ -55,93 +55,85 @@ def selectMap():
     print(
         'You are currently trapped in a castle and must find your way out. To move, you must choose a direction (north, south, west, or east) to move 1 unit.\n'
         'However, beware of the guards positioned throughout the castle. They might challenge you to a battle!\n\n'
-        f"Reminder, this is what your maze looks like:\n{progMap}\n\n"
-        "Find a path through the castle using the commands! 7s will represent your carved path.\n"
-        f"You will start at the top left corner of the maze."
+        "Find a path through the castle using the commands! 7s will represent the places you have been and Y is your current location.\n"
     )
     return grid, progMap, player_x, player_y
 
-def draw_map(message):
-    global grid, player_x, player_y
-    print(term.home + term.clear)
-    print(term.bold("== Medieval Math Mayhem =="))
-
-    # Draw the map
-    for y, row in enumerate(grid):
+def draw_map(progMap, player_x, player_y):
+    # print(term.home + term.clear)
+    for y, row in enumerate(progMap):
         line = ""
         for x, cell in enumerate(row):
             if x == player_x and y == player_y:
-                line += term.reverse("P")
+                line += term.reverse("Y")  # player's current location
             else:
-                line += cell
+                line += str(cell)
         print(term.move(y + 2, 2) + line)
-
-    # Instructions and message
-    print(term.move(len(grid) + 4, 2) + term.yellow("Enter direction (north, south, east, west) or 'q' to quit:"))
-    if message:
-        print(term.move(len(grid) + 5, 2) + term.cyan(f"Message: {message}"))
-selectMap()
-draw_map("i hope this works")
 
 def UI_run():
     global grid, progMap, currentMapNum, progressMade, player_y, player_x
-    win = False
-    #continuous input dependent on if the player wins or not
-    while win == False:
-        i = input("\nWhat would you like to do? (move/save): ").lower()
-        if 'move' in i:
-            direction = input("Which direction would you like to go? (north/south/east/west): ")
-            x, y = player_x, player_y
-            if direction == "east":
-                distMoved = setLocation(x, y + 1, grid, progMap)
-            elif direction == "west":
-                distMoved = setLocation(x, y - 1, grid, progMap)
-            elif direction == "south":
-                distMoved = setLocation(x + 1, y, grid, progMap)
-            elif direction == "north":
-                distMoved = setLocation(x - 1, y, grid, progMap)
-            else:
-                print("\nInvalid direction. Please try again.")
-                continue
+    with term.fullscreen(), term.cbreak(), term.hidden_cursor():
+        win = False
+        #continuous input dependent on if the player wins or not
+        while win == False:
+            print("This is your current map")
+            draw_map(progMap, player_x, player_y)
 
-            player_x, player_y = getCurrentLocation()
-
-            if distMoved == False:
-                print(f"\nYou cannot move there, your location is still {getCurrentLocation()}.")
-            elif grid[player_x][player_y] == 3:
-                if guard_found():
-                    print(f"\nMoved a unit {direction}")
-                    progMap[player_x][player_y] = 7
-                    print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
+            i = input(term.move(len(grid) + 6, 2) + "> What would you like to do? (move/save): ").lower()
+            if 'move' in i:
+                direction = input(term.move(len(grid) + 6, 2) + "> Which direction would you like to go? (north/south/east/west): ").lower()
+                x, y = player_x, player_y
+                if direction == "east":
+                    distMoved = setLocation(x, y + 1, grid, progMap)
+                elif direction == "west":
+                    distMoved = setLocation(x, y - 1, grid, progMap)
+                elif direction == "south":
+                    distMoved = setLocation(x + 1, y, grid, progMap)
+                elif direction == "north":
+                    distMoved = setLocation(x - 1, y, grid, progMap)
                 else:
+                    print("\nInvalid direction. Please try again.")
+                    continue
+
+                player_x, player_y = getCurrentLocation()
+
+                if distMoved == False:
+                    print(f"\nYou cannot move there, your location is still {getCurrentLocation()}.")
+                elif grid[player_x][player_y] == 3:
+                    if guard_found():
+                        print(f"\nMoved a unit {direction}.")
+                        # progMap[player_x][player_y] = 7
+                        print(f"Your current location is {getCurrentLocation()} and current progress map is")
+                        draw_map(progMap, player_x, player_y)
+                    else:
+                        win = True
+                        progressMade = False
+                elif grid[player_x][player_y] == 2:
+                    goalReached(grid)
                     win = True
-                    progressMade = False
-            elif grid[player_x][player_y] == 2:
-                goalReached(grid)
-                win = True
-            else:
-                print(f"\nMoved a unit {direction}.")
-                progMap[player_x][player_y] = 7
-                print(f"Your current location is {getCurrentLocation()} and current progress map is {progMap}.")
+                else:
+                    print(f"\nMoved a unit {direction}.")
+                    # progMap[player_x][player_y] = 7
+                    print(f"Your current location is {getCurrentLocation()} and current progress map is")
+                    draw_map(progMap, player_x, player_y)
 
-        elif "save" in i:
-            savingGame(player_x, player_y, grid, progMap)
-            return
+            elif "save" in i:
+                savingGame(player_x, player_y, grid, progMap)
+                return
 
-        elif "print" in i: #cheat key
-            print(grid)
+            elif "print" in i: #cheat key
+                print(grid)
 
-    if progressMade and currentMapNum < 5:
-        currentMapNum += 1
-        print(f"You have leveled up to map {currentMapNum}. ")
-        grid = load_map(f"map{currentMapNum}.txt")
-        progMap = print_map(grid)
-        player_x, player_y = 0, 0
-        resetCurrentLocation()
-        print(f"Your maze looks like this: {progMap}")
-        UI_run()
-    elif progressMade and currentMapNum == 5:
-        print("Congrats! You have completed all of the pre-built levels.")
+        if progressMade and currentMapNum < 5:
+            currentMapNum += 1
+            print(f"You have leveled up to map {currentMapNum}. ")
+            grid = load_map(f"map{currentMapNum}.txt")
+            progMap = print_map(grid)
+            player_x, player_y = 0, 0
+            resetCurrentLocation()
+            UI_run()
+        elif progressMade and currentMapNum == 5:
+            print("Congrats! You have completed all of the pre-built levels.")
 
 
 if __name__ == "__main__":
@@ -159,4 +151,4 @@ if __name__ == "__main__":
         print(f"It has taken you {mins} minutes {secs} seconds to play the game.")
     else:
         print(f"It has taken you {secs} seconds to play the game.")
-    print("Thanks for playing!\nRestart to play again.")
+    print("Thanks for playing and Congrats on winning!\nRestart to play again.")
