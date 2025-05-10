@@ -6,13 +6,14 @@ term = blessed.Terminal()
 
 currentMapNum = 1
 progressMade = False
+grid = None
 
 def selectMap():
     """
     starts the game by allowing player to input which map they would like. Uses load_map to set 'grid' to desired map
     :return: grid, progMap, the user's current location coordinates
     """
-    global player_x, player_y, currentMapNum, progressMade
+    global player_x, player_y, currentMapNum, progressMade, grid
     print(
         "Choose how you would like to play the game: \n"
         "1. Progress through pre-built maps (map1 -> map5)\n"
@@ -59,6 +60,28 @@ def selectMap():
         f"You will start at the top left corner of the maze."
     )
     return grid, progMap, player_x, player_y
+
+def draw_map(message):
+    global grid, player_x, player_y
+    print(term.home + term.clear)
+    print(term.bold("== Medieval Math Mayhem =="))
+
+    # Draw the map
+    for y, row in enumerate(grid):
+        line = ""
+        for x, cell in enumerate(row):
+            if x == player_x and y == player_y:
+                line += term.reverse("P")
+            else:
+                line += cell
+        print(term.move(y + 2, 2) + line)
+
+    # Instructions and message
+    print(term.move(len(grid) + 4, 2) + term.yellow("Enter direction (north, south, east, west) or 'q' to quit:"))
+    if message:
+        print(term.move(len(grid) + 5, 2) + term.cyan(f"Message: {message}"))
+selectMap()
+draw_map("i hope this works")
 
 def UI_run():
     global grid, progMap, currentMapNum, progressMade, player_y, player_x
