@@ -166,12 +166,11 @@ def resetCurrentLocation():
     player_x, player_y = 0,0
     return(player_x, player_y)
 
-def setLocation(x: int, y: int, grid, progMap)-> bool:
-    global player_x, player_y
+def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> bool:
     if precondition(x == player_x or y == player_y) == False:
         print(f"You can only move in a straight line horizontally or vertically!")
         return False
-    elif x > player_x:
+    if x > player_x:
         if canGoSouth(x, grid):
             goSouth(x, progMap)
             return True
@@ -198,8 +197,7 @@ def setLocation(x: int, y: int, grid, progMap)-> bool:
 
 def goalReached(grid):
     if grid[player_x][player_y] == 2:
-        print(f"You found the exit!\nThe actual maze was {grid}\n")
-        print('You have escaped this castle level.\n')
+        print(f"You found the exit and have escaped this castle level.\n")
         open('lastGameSaved.json', 'w').close()  # clears the last saved game
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
@@ -276,7 +274,7 @@ def guard_found():
 
 def savingGame(player_x, player_y, grid, progMap):
     prevPlay = {
-            "lastLoc": [player_y, player_x],
+            "lastLoc": [player_x, player_y],
             "grid": grid,
             "progMap": progMap,
         }
