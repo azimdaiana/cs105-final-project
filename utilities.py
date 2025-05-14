@@ -169,7 +169,7 @@ def updateCurrentLocation(newPlayer_x, newPlayer_y):
 def resetCurrentLocation():
     global player_x, player_y
     player_x, player_y = 0,0
-    return(player_x, player_y)
+    return (player_x, player_y)
 
 def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> bool:
     if precondition(x == player_x or y == player_y) == False:
@@ -178,6 +178,7 @@ def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> boo
     if x > player_x:
         if canGoSouth(x, grid):
             goSouth(x, progMap)
+            print(x, player_x)
             return True
         else:
             return False
@@ -201,10 +202,8 @@ def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> boo
             return False
 
 def goalReached(grid):
-    global s
     if grid[player_x][player_y] == 2:
         print(f"You found the exit and have escaped this castle level.\n")
-    if s == 3:
         open('lastGameSaved.json', 'w').close()  # clears the last saved game
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII

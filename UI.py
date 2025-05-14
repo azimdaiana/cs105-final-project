@@ -39,6 +39,7 @@ def selectMap():
         try:
             lastLoc, grid, progMap = loadSavedGame()
             player_x, player_y = lastLoc
+            # updateCurrentLocation(player_x, player_y)
             print("Your last game has been uploaded!\n"
                   f"Current location: ({player_x+1}, {player_y+1})\n")
             return grid, progMap, player_x, player_y
@@ -98,7 +99,6 @@ def UI_run():
                 print(x, player_x, y, player_y)
                 if direction == "east":
                     distMoved = setLocation(x, player_x, y + 1, player_y, grid, progMap)
-                    print("this should work", player_x, player_y)
                 elif direction == "west":
                     distMoved = setLocation(x, player_x, y - 1, player_y, grid, progMap)
                 elif direction == "south":
@@ -109,11 +109,13 @@ def UI_run():
                     print("\nInvalid direction. Please try again.")
                     continue
 
-                player_x, player_y = updateCurrentLocation(player_x, player_y)
-                # if s == "3":
-                #
-                # else:
-                #     player_x, player_y = getCurrentLocation()
+
+                if s == "3":
+                    print(player_x, player_y)
+                    player_x, player_y = updateCurrentLocation(player_x, player_y)
+                    print(player_x, player_y)
+                else:
+                    player_x, player_y = getCurrentLocation()
 
                 if distMoved == False:
                     print(f"\nYou cannot move there.")
