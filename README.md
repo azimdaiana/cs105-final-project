@@ -1,5 +1,5 @@
 # cs105-final-project
-Final Project for CMSC105: Medival Math Mayhem \
+Final Project for CMSC105: Medieval Math Mayhem \
 by Grace A & Daiana A &  Monica D
 
 This game is designed for elementary-aged children to practice arithmetic operations in a fun and interactive way. 
