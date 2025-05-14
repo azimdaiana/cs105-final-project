@@ -35,11 +35,10 @@ def selectMap():
             print("Invalid input for grid size\n")
             return selectMap()
     elif s == "3":
-        print("This feature is currently being updated and is not available at the moment.")
         try:
             lastLoc, grid, progMap = loadSavedGame()
             player_x, player_y = lastLoc
-            # updateCurrentLocation(player_x, player_y)
+            updateCurrentLocation(player_x, player_y)
             print("Your last game has been uploaded!\n"
                   f"Current location: ({player_x+1}, {player_y+1})\n")
             return grid, progMap, player_x, player_y
@@ -96,7 +95,6 @@ def UI_run():
             if 'move' in i:
                 direction = input(term.move(len(grid) + 6, 2) + "> Which direction would you like to go? (north/south/east/west): ").lower()
                 x, y = player_x, player_y
-                print(x, player_x, y, player_y)
                 if direction == "east":
                     distMoved = setLocation(x, player_x, y + 1, player_y, grid, progMap)
                 elif direction == "west":
@@ -109,13 +107,7 @@ def UI_run():
                     print("\nInvalid direction. Please try again.")
                     continue
 
-
-                if s == "3":
-                    print(player_x, player_y)
-                    player_x, player_y = updateCurrentLocation(player_x, player_y)
-                    print(player_x, player_y)
-                else:
-                    player_x, player_y = getCurrentLocation()
+                player_x, player_y = getCurrentLocation()
 
                 if distMoved == False:
                     print(f"\nYou cannot move there.")

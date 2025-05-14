@@ -178,7 +178,6 @@ def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> boo
     if x > player_x:
         if canGoSouth(x, grid):
             goSouth(x, progMap)
-            print(x, player_x)
             return True
         else:
             return False
