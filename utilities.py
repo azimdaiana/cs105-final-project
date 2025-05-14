@@ -269,11 +269,17 @@ def guard_found():
         print("You have encountered a guard. If you can correctly answer this problem for him, you may pass \n"
               "through. If not, you will be sent to the dungeon... \nHere is your problem: " + problem)
         answer = input("Answer: ")
-        if int(answer) == solution:
-            print("Yay! You are free to continue!")
-            return True
-        else:
-            print("Off to the dungeon. You have failed the game.")
+
+        try:
+            if int(answer) == solution:
+                print("Yay! You are free to continue!")
+                return True
+            else:
+                print("Incorrect answer.\nOff to the dungeon. You have failed the game.")
+                print(graphic("images.jpeg", 60))
+                return False
+        except ValueError:
+            print("That is not a valid number! Off to the dungeon you go for trying to trick the guard.")
             print(graphic("images.jpeg", 60))
             return False
 
