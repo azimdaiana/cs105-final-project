@@ -161,6 +161,11 @@ def getCurrentLocation() -> tuple:
     global player_x, player_y
     return (player_x, player_y)
 
+def updateCurrentLocation(newPlayer_x, newPlayer_y):
+    global player_x, player_y
+    player_x, player_y = newPlayer_x, newPlayer_y
+    return (player_x, player_y)
+
 def resetCurrentLocation():
     global player_x, player_y
     player_x, player_y = 0,0
@@ -196,8 +201,10 @@ def setLocation(x: int, player_x:int, y: int, player_y:int, grid, progMap)-> boo
             return False
 
 def goalReached(grid):
+    global s
     if grid[player_x][player_y] == 2:
         print(f"You found the exit and have escaped this castle level.\n")
+    if s == 3:
         open('lastGameSaved.json', 'w').close()  # clears the last saved game
 
 # code for the 4 functions below is a modified version of https://github.com/Kernel-rb/Image2ASCII
@@ -274,7 +281,7 @@ def guard_found():
 
 def savingGame(player_x, player_y, grid, progMap):
     prevPlay = {
-            "lastLoc": [player_x, player_y],
+            "lastLoc": (player_x, player_y),
             "grid": grid,
             "progMap": progMap,
         }

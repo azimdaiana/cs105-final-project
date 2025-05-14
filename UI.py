@@ -1,6 +1,6 @@
 import blessed
 import time
-from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame, goalReached, resetCurrentLocation
+from utilities import load_map, print_map, randomMaze, getCurrentLocation, setLocation, guard_found, generate_problem, loadSavedGame, savingGame, goalReached, resetCurrentLocation, updateCurrentLocation
 
 term = blessed.Terminal()
 
@@ -35,11 +35,12 @@ def selectMap():
             print("Invalid input for grid size\n")
             return selectMap()
     elif s == "3":
+        print("This feature is currently being updated and is not available at the moment.")
         try:
-            loc, grid, progMap = loadSavedGame()
-            player_x, player_y = loc
+            lastLoc, grid, progMap = loadSavedGame()
+            player_x, player_y = lastLoc
             print("Your last game has been uploaded!\n"
-                  f"Current location: ({player_y+1}, {player_x+1})\n")
+                  f"Current location: ({player_x+1}, {player_y+1})\n")
             return grid, progMap, player_x, player_y
         except (FileNotFoundError, ValueError):
             print("No saved game found. Please choose a new map.\n")
@@ -49,6 +50,7 @@ def selectMap():
         return selectMap()
 
     progMap = print_map(grid)
+
     player_x, player_y = getCurrentLocation()
 
     print(f'\nYour selected map has the following dimensions: {len(grid)}x{len(grid[0])}.')
@@ -84,8 +86,8 @@ def UI_run():
         #continuous input dependent on if the player wins or not
         while win == False:
             print("This is your current map:")
-            if s == "3":
-                draw_map(progMap, player_x, player_y)
+            if s != "3":
+                draw_map(progMap, player_y, player_x)
             else:
                 draw_map(progMap, player_y, player_x)
 
@@ -93,8 +95,10 @@ def UI_run():
             if 'move' in i:
                 direction = input(term.move(len(grid) + 6, 2) + "> Which direction would you like to go? (north/south/east/west): ").lower()
                 x, y = player_x, player_y
+                print(x, player_x, y, player_y)
                 if direction == "east":
                     distMoved = setLocation(x, player_x, y + 1, player_y, grid, progMap)
+                    print("this should work", player_x, player_y)
                 elif direction == "west":
                     distMoved = setLocation(x, player_x, y - 1, player_y, grid, progMap)
                 elif direction == "south":
@@ -105,7 +109,11 @@ def UI_run():
                     print("\nInvalid direction. Please try again.")
                     continue
 
-                player_x, player_y = getCurrentLocation()
+                player_x, player_y = updateCurrentLocation(player_x, player_y)
+                # if s == "3":
+                #
+                # else:
+                #     player_x, player_y = getCurrentLocation()
 
                 if distMoved == False:
                     print(f"\nYou cannot move there.")
