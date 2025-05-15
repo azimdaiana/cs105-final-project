@@ -11,4 +11,5 @@ problem presented by the guard. A correct answer lets the player continue along 
 is incorrect, they are sent to the dungeon, ending the game.
 
 To run the game: $ python3 UI.py
+
 -> dependencies: blessed, pillow (ASCII art)
