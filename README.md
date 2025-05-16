@@ -10,6 +10,5 @@ Along the journey, players may encounter guards blocking their way. To pass, the
 problem presented by the guard. A correct answer lets the player continue along the path. However, if the answer 
 is incorrect, they are sent to the dungeon, ending the game.
 
-To run the game: $ python3 UI.py
-
+To run the game: run the UI.py file
 -> dependencies: blessed, pillow (ASCII art)
