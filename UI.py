@@ -82,6 +82,7 @@ def draw_map(progMap, player_x, player_y):
 def UI_run():
     global grid, progMap, currentMapNum, progressMade, player_y, player_x, s
     with term.fullscreen(), term.cbreak(), term.hidden_cursor():
+        print(term.clear)
         win = False
         #continuous input dependent on if the player wins or not
         while win == False:
@@ -91,9 +92,9 @@ def UI_run():
             else:
                 draw_map(progMap, player_y, player_x)
 
-            i = input(term.move(len(grid) + 6, 2) + "> What would you like to do? (move/save): ").lower()
+            i = input("What would you like to do? (move/save): ").lower()
             if 'move' in i:
-                direction = input(term.move(len(grid) + 6, 2) + "> Which direction would you like to go? (north/south/east/west): ").lower()
+                direction = input("Which direction would you like to go? (north/south/east/west): ").lower()
                 x, y = player_x, player_y
                 if direction == "east":
                     distMoved = setLocation(x, player_x, y + 1, player_y, grid, progMap)
